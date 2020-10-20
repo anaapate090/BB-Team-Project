@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Media;
 
 namespace BrickBreaker
 {
@@ -10,6 +11,10 @@ namespace BrickBreaker
         public Color colour;
 
         public static Random rand = new Random();
+
+        SoundPlayer wallBounce = new SoundPlayer(Properties.Resources.wallSound);
+        SoundPlayer paddleBounce = new SoundPlayer(Properties.Resources.paddleSound);
+        SoundPlayer brickBounce = new SoundPlayer(Properties.Resources.breakSound);
 
         public Ball(int _x, int _y, int _xSpeed, int _ySpeed, int _ballSize)
         {
@@ -34,6 +39,7 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(blockRec))
             {
+                brickBounce.Play();
                 ySpeed *= -1;
             }
 
@@ -47,6 +53,7 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(paddleRec))
             {
+                paddleBounce.Play();
                 if (y + size >= p.y)
                 {
                     ySpeed *= -1;
@@ -64,16 +71,19 @@ namespace BrickBreaker
             // Collision with left wall
             if (x <= 0)
             {
+                wallBounce.Play();
                 xSpeed *= -1;
             }
             // Collision with right wall
             if (x >= (UC.Width - size))
             {
+                wallBounce.Play();
                 xSpeed *= -1;
             }
             // Collision with top wall
             if (y <= 2)
             {
+                wallBounce.Play();
                 ySpeed *= -1;
             }
         }

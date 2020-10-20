@@ -20,7 +20,7 @@ namespace BrickBreaker
         #region global values
 
         //player1 button control keys - DO NOT CHANGE
-        Boolean leftArrowDown, rightArrowDown;
+        Boolean leftArrowDown, rightArrowDown, pKeyDown, gamePaused;
 
         // Game values
         int lives;
@@ -52,7 +52,7 @@ namespace BrickBreaker
             lives = 3;
 
             //set all button presses to false.
-            leftArrowDown = rightArrowDown = false;
+            leftArrowDown = rightArrowDown = pKeyDown = false;
 
             // setup starting paddle values and create paddle object
             int paddleWidth = 80;
@@ -71,6 +71,12 @@ namespace BrickBreaker
             int ySpeed = 6;
             int ballSize = 20;
             ball = new Ball(ballX, ballY, xSpeed, ySpeed, ballSize);
+
+            pauseLabel.Visible = false;
+            menuButton.Enabled = false;
+            menuButton.Visible = false;
+            resumeButton.Enabled = false;
+            resumeButton.Visible = false;
 
             #region Creates blocks for generic level. Need to replace with code that loads levels.
             
@@ -103,6 +109,9 @@ namespace BrickBreaker
                 case Keys.Right:
                     rightArrowDown = true;
                     break;
+                case Keys.P:
+                    pKeyDown = true;
+                    break;
                 default:
                     break;
             }
@@ -118,6 +127,9 @@ namespace BrickBreaker
                     break;
                 case Keys.Right:
                     rightArrowDown = false;
+                    break;
+                case Keys.P:
+                    pKeyDown = false;
                     break;
                 default:
                     break;
@@ -177,21 +189,40 @@ namespace BrickBreaker
                     break;
                 }
             }
-
+            pauseScreenEnabled();
             //redraw the screen
             Refresh();
         }
 
+        private void menuButton_Click(object sender, EventArgs e)
+        {
+            gamePaused = false;
+            OnEnd();
+        }
+
+        private void resumeButton_Click(object sender, EventArgs e)
+        {
+            pauseLabel.Visible = false;
+            resumeButton.Enabled = false;
+            resumeButton.Visible = false;
+            menuButton.Enabled = false;
+            menuButton.Visible = false;
+            gamePaused = false;
+
+            this.Focus();
+        }
+
         public void OnEnd()
         {
-            // Goes to the game over screen
-            Form form = this.FindForm();
-            MenuScreen ps = new MenuScreen();
-            
-            ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
+                Form form = this.FindForm();
+                GameOverScreen gos = new GameOverScreen();
 
-            form.Controls.Add(ps);
-            form.Controls.Remove(this);
+                //gos.Location = new Point((form.Width - gos.Width) / 2, (form.Height - gos.Height) / 2);
+
+                form.Controls.Add(gos);
+                form.Controls.Remove(this);
+
+                gos.Focus();          
         }
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
@@ -208,6 +239,26 @@ namespace BrickBreaker
 
             // Draws ball
             e.Graphics.FillRectangle(ballBrush, ball.x, ball.y, ball.size, ball.size);
+        }
+        public void pauseScreenEnabled()
+        {
+            if (pKeyDown)
+            {
+                gamePaused = true;
+            }
+            if (gamePaused)
+            {
+                pauseLabel.Visible = true;
+                gameTimer.Enabled = false;
+                menuButton.Enabled = true;
+                menuButton.Visible = true;
+                resumeButton.Enabled = true;
+                resumeButton.Visible = true;
+            }
+            else
+            {
+                gameTimer.Enabled = true;
+            }
         }
     }
 }
