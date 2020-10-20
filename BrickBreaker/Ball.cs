@@ -34,7 +34,14 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(blockRec))
             {
-                ySpeed *= -1;
+                if (x <= b.x + b.width && x >= b.x)
+                {
+                    ySpeed *= -1;
+                }
+                else if (y <= b.y + b.height && y >= b.y)
+                {
+                    xSpeed *= -1;
+                }
             }
 
             return blockRec.IntersectsWith(ballRec);         
@@ -47,13 +54,12 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(paddleRec))
             {
-                if (y + size >= p.y)
+                if (y + size >= p.y && y + size <= p.y + ySpeed + 2)
                 {
                     ySpeed *= -1;
                 }
-
                 if (pMovingLeft)
-                    xSpeed = -Math.Abs(xSpeed);
+                    xSpeed = -Math.Abs(xSpeed); 
                 else if (pMovingRight)
                     xSpeed = Math.Abs(xSpeed);
             }
