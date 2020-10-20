@@ -73,23 +73,20 @@ namespace BrickBreaker
             ball = new Ball(ballX, ballY, xSpeed, ySpeed, ballSize);
 
             #region Creates blocks for generic level. Need to replace with code that loads levels.
-            
-            //TODO - replace all the code in this region eventually with code that loads levels from xml files
-            
-            blocks.Clear();
-            int x = 10;
 
-            while (blocks.Count < 12)
-            {
-                x += 57;
-                Block b1 = new Block(x, 10, 1, Color.White);
-                blocks.Add(b1);
-            }
+            //TODO - replace all the code in this region eventually with code that loads levels from xml files
+
+            AnaamiMethod();
 
             #endregion
 
             // start the game engine loop
             gameTimer.Enabled = true;
+        }
+
+        private void AnaamiMethod()
+        {
+
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
