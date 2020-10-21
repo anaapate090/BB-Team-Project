@@ -112,7 +112,7 @@ namespace BrickBreaker
                     {
                         if (d.type == "points")
                         {
-
+                        
                         }
                         else if (d.type == "ball")
                         {
@@ -129,11 +129,16 @@ namespace BrickBreaker
                         }
                         else if (d.type == "fast")
                         {
-                        paddle.speed += 3;
+                        paddle.speed += 1;
                         }
+                    d.y = this.Height + 1;
                     }
                 }
-            
+            int index = Powerup.FindIndex(b => b.y > this.Height);
+            if (index >= 0 && Powerup.Count() > 0)
+            {
+                Powerup.RemoveAt(index);
+            }
         }
         
 
