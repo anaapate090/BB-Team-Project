@@ -16,9 +16,6 @@ namespace BrickBreaker
         public int y; 
         public int hp;
 
-
-        public static Random rand = new Random();
-
         public Block(int _x, int _y, int _hp)
         {
             x = _x;
