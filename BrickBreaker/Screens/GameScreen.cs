@@ -82,11 +82,12 @@ namespace BrickBreaker
                         if (powerupType == 1) // add 300 points
                         {
                             type = "points";
-                            
+                            c = Color.Blue;
                         }
                         else if (powerupType == 2) // add another ball
                         {
                             type = "ball";
+                            c = Color.Yellow;
                         }
                         else if (powerupType == 3) // add extra life
                         {
@@ -124,12 +125,18 @@ namespace BrickBreaker
                     {
                         if (d.type == "points")
                         {
-                        
+                        score += 300;
                         }
                         else if (d.type == "ball")
                         {
-
-                        }
+                         Rectangle ballRec = new Rectangle(ball.x, ball.y, ball.size, ball.size);
+                        int ballX = this.Width / 2 - 10;
+                        int ballY = this.Height - paddle.height - 80;
+                        int xSpeed = 6;
+                        int ySpeed = 6;
+                        int ballSize = 20;
+                        ball = new Ball(ballX, ballY, xSpeed, ySpeed, ballSize);
+                    }
                         else if (d.type == "life")
                         {
                             lives++;
