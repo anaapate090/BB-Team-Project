@@ -244,9 +244,13 @@ namespace BrickBreaker.Properties {
         ///  &lt;/brick&gt;
         ///&lt;/level&gt;.
         /// </summary>
-        internal static string level4 {
-            get {
+        internal static string level4
+        {
+            get
+            {
                 return ResourceManager.GetString("level4", resourceCulture);
+            }
+        }
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap title_screen_brick_breaker {

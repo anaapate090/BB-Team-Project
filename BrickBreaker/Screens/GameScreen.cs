@@ -55,26 +55,9 @@ namespace BrickBreaker
         {
             InitializeComponent();
 
-            XmlReader reader = XmlReader.Create("Resources/level1.xml");
-
-            while (reader.Read())
-            {
-                if (reader.NodeType == XmlNodeType.Text)
-                {
-                    int x = Convert.ToInt16(reader.ReadString());
-
-                    reader.ReadToNextSibling("y");
-                    int y = Convert.ToInt16(reader.ReadString());
-
-                    reader.ReadToNextSibling("hp");
-                    int hp = Convert.ToInt16(reader.ReadString());
-
-                    Block newBlock = new Block(x, y, hp);
-                    blocks.Add(newBlock);
-                }
-            }
             OnStart();
-            IanMethod();
+
+            
         }
 
         public void IanMethod()
@@ -210,53 +193,41 @@ namespace BrickBreaker
             menuButton.Visible = false;
             resumeButton.Enabled = false;
             resumeButton.Visible = false;
-
-            #region Creates blocks for generic level. Need to replace with code that loads levels.
-
-            //TODO - replace all the code in this region eventually with code that loads levels from xml files
-
-            blocks.Clear();
-            int x = 10;
-
-            while (blocks.Count < 12)
-            {
-                x += 57;
-                Block b1 = new Block(x, 10, 1);
-                blocks.Add(b1);
-            }
-
-            foreach (Block b in blocks)
-            {
-                int health = b.hp;
-                int xValue = b.x;
-                int yValue = b.y;
-            }
-            #endregion
+            levelLoad();
 
             // start the game engine loop
             gameTimer.Enabled = true;
         }
 
-        private void XMLReader()
+        private void levelLoad()
         {
-        //    XmlReader reader = XmlReader.Create("Resources/level1.xml");
+            //XmlReader reader = XmlReader.Create("Resources/level1.xml");
+            //reader.ReadStartElement("level");
 
-        //    while (reader.Read())
-        //    {
-        //        if (reader.NodeType == XmlNodeType.Text)
-        //        {
-        //            int x = Convert.ToInt16(reader.ReadString());
+            //while (reader.Read())
+            //{
+            //    reader.ReadStartElement("brick");
+            //    if (reader.NodeType == XmlNodeType.Text)
+            //    {
+                    
 
-        //            reader.ReadToNextSibling("y");
-        //            int y = Convert.ToInt16(reader.ReadString());
+            //        reader.ReadToNextSibling("x");
+            //        int x = Convert.ToInt16(reader.ReadAttributeValue());
 
-        //            reader.ReadToNextSibling("hp");
-        //            int hp = Convert.ToInt16(reader.ReadString());
+            //        reader.ReadToNextSibling("y");
+            //        int y = Convert.ToInt16(reader.ReadAttributeValue());
 
-        //            Block newBlock = new Block(x, y, hp);
-        //            blocks.Add(newBlock);
-        //        }
-        //    }
+            //        reader.ReadToNextSibling("hp");
+            //        int hp = Convert.ToInt16(reader.ReadAttributeValue());
+
+            //        Block newBlock = new Block(x, y, hp);
+            //        blocks.Add(newBlock); 
+            //    }
+            //    reader.ReadEndElement();
+
+            //}
+            //reader.ReadEndElement();
+            //reader.Close();
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -304,9 +275,11 @@ namespace BrickBreaker
             livesLabel.Text = "Lives: " + lives;
             scoreLabel.Text = "Score: " + score;
 
+            IanMethod();
+
             #region Move the paddle
 
-            if(paddle.width > 80)
+            if (paddle.width > 80)
             {
                 paddle.width--;
             }
@@ -442,7 +415,7 @@ namespace BrickBreaker
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             #region Draws paddle
-            paddleBrush.Color = paddle.colour;
+            paddleBrush.Color = Color.White;
             e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
             #endregion
 
