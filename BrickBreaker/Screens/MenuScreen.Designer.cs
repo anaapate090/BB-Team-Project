@@ -42,6 +42,7 @@
             this.playButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.playButton.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold);
             this.playButton.Location = new System.Drawing.Point(330, 175);
+
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(194, 77);
             this.playButton.TabIndex = 0;
@@ -58,6 +59,7 @@
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.exitButton.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold);
             this.exitButton.Location = new System.Drawing.Point(330, 279);
+
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(194, 77);
             this.exitButton.TabIndex = 1;
@@ -86,6 +88,7 @@
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.playButton);
             this.ForeColor = System.Drawing.Color.Black;
+
             this.Name = "MenuScreen";
             this.Size = new System.Drawing.Size(854, 542);
             this.ResumeLayout(false);

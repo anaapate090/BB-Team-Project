@@ -38,7 +38,7 @@
             // gameTimer
             // 
             this.gameTimer.Enabled = true;
-            this.gameTimer.Interval = 1;
+            this.gameTimer.Interval = 15;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
             // resumeButton
@@ -89,7 +89,10 @@
             this.Controls.Add(this.menuButton);
             this.Controls.Add(this.pauseLabel);
             this.DoubleBuffered = true;
-            this.Name = "GameScreen";
+
+          this.Margin = new System.Windows.Forms.Padding(4);
+
+          this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(854, 542);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreen_Paint);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyUp);

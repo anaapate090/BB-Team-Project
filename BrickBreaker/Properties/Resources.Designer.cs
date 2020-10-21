@@ -66,6 +66,14 @@ namespace BrickBreaker.Properties {
         internal static System.IO.UnmanagedMemoryStream breakSound {
             get {
                 return ResourceManager.GetStream("breakSound", resourceCulture);
+                }
+                }
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cobbleBrick_1hit {
+            get {
+                object obj = ResourceManager.GetObject("cobbleBrick_1hit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -75,6 +83,14 @@ namespace BrickBreaker.Properties {
         internal static System.IO.UnmanagedMemoryStream paddleSound {
             get {
                 return ResourceManager.GetStream("paddleSound", resourceCulture);
+                }
+                }
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cobbleBrick_2hits {
+            get {
+                object obj = ResourceManager.GetObject("cobbleBrick_2hits", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -84,6 +100,24 @@ namespace BrickBreaker.Properties {
         internal static System.IO.UnmanagedMemoryStream wallSound {
             get {
                 return ResourceManager.GetStream("wallSound", resourceCulture);
+                }
+                }
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cobbleBrick_3hits {
+            get {
+                object obj = ResourceManager.GetObject("cobbleBrick_3hits", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap title_screen_brick_breaker {
+            get {
+                object obj = ResourceManager.GetObject("title_screen_brick_breaker", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
