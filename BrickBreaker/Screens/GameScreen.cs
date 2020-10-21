@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 using System.Threading;
+using BrickBreaker.Properties;
 
 namespace BrickBreaker
 {
@@ -213,7 +214,22 @@ namespace BrickBreaker
             // Draws blocks
             foreach (Block b in blocks)
             {
-                e.Graphics.FillRectangle(blockBrush, b.x, b.y, b.width, b.height);
+                if(b.hp == 1)
+                {
+                    e.Graphics.DrawImage(Resources.cobbleBrick_1hit, b.x, b.y, b.width, b.height);
+                }
+                else if(b.hp == 2)
+                {
+                    e.Graphics.DrawImage(Resources.cobbleBrick_2hits, b.x, b.y, b.width, b.height);
+
+                }
+                else if (b.hp == 3)
+                {
+                    e.Graphics.DrawImage(Resources.cobbleBrick_3hits, b.x, b.y, b.width, b.height);
+
+                }
+
+
             }
 
             // Draws ball
