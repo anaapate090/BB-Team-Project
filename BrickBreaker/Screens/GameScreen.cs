@@ -25,7 +25,7 @@ namespace BrickBreaker
         Boolean leftArrowDown, rightArrowDown;
 
         // Game values
-        int lives;
+        public static int lives;
 
         // Paddle and Ball objects
         Paddle paddle;
@@ -33,20 +33,116 @@ namespace BrickBreaker
 
         // list of all blocks for current level
         List<Block> blocks = new List<Block>();
+        List<Powerups> Powerup = new List<Powerups>();
 
         // Brushes
         SolidBrush paddleBrush = new SolidBrush(Color.White);
         SolidBrush ballBrush = new SolidBrush(Color.White);
         SolidBrush blockBrush = new SolidBrush(Color.Red);
         
+
         #endregion
 
         public GameScreen()
         {
             InitializeComponent();
             OnStart();
+            IanMethod();
         }
 
+        public void IanMethod()
+        {
+            string type = "";
+            Color c = Color.White;
+
+            Random powerGen = new Random();
+
+            foreach (Block b in blocks)
+            {
+                if (ball.BlockCollision(b))
+                {
+                    int powerupChance = powerGen.Next(1, 4);
+                    int powerupType = powerGen.Next(1, 6);
+
+                    if (powerupChance == 1)
+                    {
+
+
+
+                        if (powerupType == 1) // add 300 points
+                        {
+                            type = "points";
+                            
+                        }
+                        else if (powerupType == 2) // add another ball
+                        {
+                            type = "ball";
+                        }
+                        else if (powerupType == 3) // add extra life
+                        {
+                            type = "life";
+                            c = Color.Red;
+                        }
+                        else if (powerupType == 4) // bigger paddle
+                        {
+                            type = "big";
+                            c = Color.Green;
+                            
+                        }
+                        else if (powerupType == 5) // makes paddle faster
+                        {
+                            type = "fast";
+                            c = Color.Pink;
+                        }
+                        SolidBrush powerBrush = new SolidBrush(c);
+                        Powerups newPowerup = new Powerups(b.x + b.width / 2 - 5, b.y + b.height / 2 - 5, 10, type, powerBrush);
+                        Powerup.Add(newPowerup);
+                    }
+
+                }
+            }
+            foreach (Powerups p in Powerup)
+            {
+                p.Move(3);
+            }
+                foreach (Powerups d in Powerup)
+                {
+                    Rectangle powerRec = new Rectangle(d.x, d.y, d.size, d.size);
+                    Rectangle paddleRec = new Rectangle(paddle.x, paddle.y, paddle.width, paddle.height);
+
+                    if (powerRec.IntersectsWith(paddleRec))
+                    {
+                        if (d.type == "points")
+                        {
+                        
+                        }
+                        else if (d.type == "ball")
+                        {
+
+                        }
+                        else if (d.type == "life")
+                        {
+                            lives++;
+                        }
+                        else if (d.type == "big")
+                        {
+                         paddle.width += 80;
+                        d.y = this.Width + 1;
+                        }
+                        else if (d.type == "fast")
+                        {
+                        paddle.speed += 1;
+                        }
+                    d.y = this.Height + 1;
+                    }
+                }
+            int index = Powerup.FindIndex(b => b.y > this.Height);
+            if (index >= 0 && Powerup.Count() > 0)
+            {
+                Powerup.RemoveAt(index);
+            }
+        }
+        
 
         public void OnStart()
         {
@@ -149,6 +245,8 @@ namespace BrickBreaker
             // Move ball
             ball.Move();
 
+            IanMethod();
+
             // Check for collision with top and side walls
             ball.WallCollision(this);
 
@@ -235,7 +333,16 @@ namespace BrickBreaker
             // Draws ball
             e.Graphics.FillRectangle(ballBrush, ball.x, ball.y, ball.size, ball.size);
 
-            
+
+            //Draws Powerup
+            if (Powerup.Count() > 0)
+            {
+                foreach (Powerups p in Powerup)
+                {
+                    e.Graphics.FillRectangle(p.powerupBrush, p.x, p.y, p.size, p.size);
+                }
+            }
+           
         }
         
     }
