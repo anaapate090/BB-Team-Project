@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using System.Xml;
+using System.IO;
 
 namespace BrickBreaker
 {
@@ -24,6 +26,7 @@ namespace BrickBreaker
 
         // Game values
         int lives;
+        int score;
 
         // Paddle and Ball objects
         Paddle paddle;
@@ -42,14 +45,37 @@ namespace BrickBreaker
         public GameScreen()
         {
             InitializeComponent();
+
+            XmlReader reader = XmlReader.Create("Resources/level1.xml");
+
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.Text)
+                {
+                    int x = Convert.ToInt16(reader.ReadString());
+
+                    reader.ReadToNextSibling("y");
+                    int y = Convert.ToInt16(reader.ReadString());
+
+                    reader.ReadToNextSibling("hp");
+                    int hp = Convert.ToInt16(reader.ReadString());
+
+                    Block newBlock = new Block(x, y, hp);
+                    blocks.Add(newBlock);
+                }
+            }
             OnStart();
         }
 
 
         public void OnStart()
         {
+            #region Global variables
             //set life counter
             lives = 3;
+
+            //set score counter
+            score = 0;
 
             //set all button presses to false.
             leftArrowDown = rightArrowDown = false;
@@ -71,22 +97,53 @@ namespace BrickBreaker
             int ySpeed = 6;
             int ballSize = 20;
             ball = new Ball(ballX, ballY, xSpeed, ySpeed, ballSize);
+            #endregion
 
             #region Creates blocks for generic level. Need to replace with code that loads levels.
 
             //TODO - replace all the code in this region eventually with code that loads levels from xml files
+            blocks.Clear();
+            int x = 10;
 
-            AnaamiMethod();
+            while (blocks.Count < 12)
+            {
+                x += 57;
+                Block b1 = new Block(x, 10, 1);
+                blocks.Add(b1);
+            }
 
+            foreach (Block b in blocks)
+            {
+                int health = b.hp;
+                int xValue = b.x;
+                int yValue = b.y;
+            }
             #endregion
 
             // start the game engine loop
             gameTimer.Enabled = true;
         }
 
-        private void AnaamiMethod()
+        private void XMLReader()
         {
+        //    XmlReader reader = XmlReader.Create("Resources/level1.xml");
 
+        //    while (reader.Read())
+        //    {
+        //        if (reader.NodeType == XmlNodeType.Text)
+        //        {
+        //            int x = Convert.ToInt16(reader.ReadString());
+
+        //            reader.ReadToNextSibling("y");
+        //            int y = Convert.ToInt16(reader.ReadString());
+
+        //            reader.ReadToNextSibling("hp");
+        //            int hp = Convert.ToInt16(reader.ReadString());
+
+        //            Block newBlock = new Block(x, y, hp);
+        //            blocks.Add(newBlock);
+        //        }
+        //    }
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -123,7 +180,10 @@ namespace BrickBreaker
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            // Move the paddle
+            livesLabel.Text = "Lives: " + lives;
+            scoreLabel.Text = "Score: " + score;
+
+            #region Move the paddle
             if (leftArrowDown && paddle.x > 0)
             {
                 paddle.Move("left");
@@ -132,38 +192,55 @@ namespace BrickBreaker
             {
                 paddle.Move("right");
             }
+            #endregion
 
-            // Move ball
+            #region Move ball
             ball.Move();
+            #endregion
 
-            // Check for collision with top and side walls
+            #region Check for collision with top and side walls
             ball.WallCollision(this);
+            #endregion
 
-            // Check for ball hitting bottom of screen
+            #region Check for ball hitting bottom of screen
             if (ball.BottomCollision(this))
             {
                 lives--;
 
+                livesLabel.Text = "";
+                livesLabel.Text = "Lives: " + lives;
+
                 // Moves the ball back to origin
                 ball.x = ((paddle.x - (ball.size / 2)) + (paddle.width / 2));
                 ball.y = (this.Height - paddle.height) - 85;
+                #endregion
 
+                #region check if game over
                 if (lives == 0)
                 {
                     gameTimer.Enabled = false;
                     OnEnd();
                 }
+                #endregion
             }
 
-            // Check for collision of ball with paddle, (incl. paddle movement)
+            #region Check for collision of ball with paddle, (incl. paddle movement)
             ball.PaddleCollision(paddle, leftArrowDown, rightArrowDown);
+            #endregion
 
-            // Check if ball has collided with any blocks
+            #region Check if ball has collided with any blocks
             foreach (Block b in blocks)
             {
                 if (ball.BlockCollision(b))
                 {
-                    blocks.Remove(b);
+                    int health = b.hp;
+                    score++;
+                    health --;
+
+                    if (health == 0)
+                    {
+                        blocks.Remove(b);
+                    }
 
                     if (blocks.Count == 0)
                     {
@@ -174,6 +251,7 @@ namespace BrickBreaker
                     break;
                 }
             }
+            #endregion
 
             //redraw the screen
             Refresh();
@@ -193,18 +271,37 @@ namespace BrickBreaker
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            // Draws paddle
+            #region Draws paddle
             paddleBrush.Color = paddle.colour;
             e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
+            #endregion
 
-            // Draws blocks
-            foreach (Block b in blocks)
-            {
-                e.Graphics.FillRectangle(blockBrush, b.x, b.y, b.width, b.height);
-            }
+            #region Draws blocks
+            //foreach (Block b in blocks)
+            //{
+            //    int health = b.hp;
 
-            // Draws ball
+            //    if (health == 1)
+            //    {
+            //        Bitmap bitmap = new Bitmap("cobbleBrick_1hit.png");
+            //        e.Graphics.DrawImage(bitmap, b.x, b.y);
+            //    }
+            //    else if (health == 2)
+            //    {
+            //        Bitmap bitmap = new Bitmap("cobbleBrick_2hit.png");
+            //        e.Graphics.DrawImage(bitmap, b.x, b.y);
+            //    }
+            //    else if (health == 3)
+            //    {
+            //        Bitmap bitmap = new Bitmap("cobbleBrick_3hit.png");
+            //        e.Graphics.DrawImage(bitmap, b.x, b.y);
+            //    }
+            //}
+            #endregion
+
+            #region Draws ball
             e.Graphics.FillRectangle(ballBrush, ball.x, ball.y, ball.size, ball.size);
+            #endregion
         }
     }
 }

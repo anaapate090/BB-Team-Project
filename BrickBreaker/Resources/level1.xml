@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <level>
-
   <brick>
     <x>65</x>
     <y>26</y>
@@ -91,5 +90,4 @@
     <hp>1</hp>
     <colour>Maroon</colour>
   </brick>
-  
   </level>
