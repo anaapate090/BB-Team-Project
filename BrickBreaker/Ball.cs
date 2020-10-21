@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Media;
 
 namespace BrickBreaker
 {
@@ -10,6 +11,10 @@ namespace BrickBreaker
         public Color colour;
 
         public static Random rand = new Random();
+
+        SoundPlayer wallBounce = new SoundPlayer(Properties.Resources.wallSound);
+        SoundPlayer paddleBounce = new SoundPlayer(Properties.Resources.paddleSound);
+        SoundPlayer brickBounce = new SoundPlayer(Properties.Resources.breakSound);
 
         public Ball(int _x, int _y, int _xSpeed, int _ySpeed, int _ballSize)
         {
@@ -34,7 +39,18 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(blockRec))
             {
-                ySpeed *= -1;
+
+                if (x <= b.x + b.width && x >= b.x)
+                {
+                    ySpeed *= -1;
+                }
+                else if (y >= b.y - size && y <= b.y + b.height)
+                {
+                    xSpeed *= -1;
+                }
+
+                brickBounce.Play();
+
             }
 
             return blockRec.IntersectsWith(ballRec);         
@@ -47,13 +63,18 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(paddleRec))
             {
-                if (y + size >= p.y)
+
+                if (y + size >= p.y && y + size <= p.y + ySpeed + 2)
                 {
                     ySpeed *= -1;
                 }
-
+                else if (y >= p.y && y <= p.y + p.height)
+                {
+                    xSpeed *= -1;
+                }
+                paddleBounce.Play();
                 if (pMovingLeft)
-                    xSpeed = -Math.Abs(xSpeed);
+                    xSpeed = -Math.Abs(xSpeed); 
                 else if (pMovingRight)
                     xSpeed = Math.Abs(xSpeed);
             }
@@ -64,16 +85,19 @@ namespace BrickBreaker
             // Collision with left wall
             if (x <= 0)
             {
+                wallBounce.Play();
                 xSpeed *= -1;
             }
             // Collision with right wall
             if (x >= (UC.Width - size))
             {
+                wallBounce.Play();
                 xSpeed *= -1;
             }
             // Collision with top wall
             if (y <= 2)
             {
+                wallBounce.Play();
                 ySpeed *= -1;
             }
         }
