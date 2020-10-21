@@ -124,7 +124,7 @@ namespace BrickBreaker
                         }
                         else if (d.type == "big")
                         {
-                         paddle.width += 20;
+                         paddle.width += 80;
                         d.y = this.Width + 1;
                         }
                         else if (d.type == "fast")
