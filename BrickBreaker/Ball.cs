@@ -65,9 +65,6 @@ namespace BrickBreaker
             {
 
                 if (y + size >= p.y && y + size <= p.y + ySpeed + 2)
-
-                paddleBounce.Play();
-
                 {
                     ySpeed *= -1;
                 }
@@ -75,6 +72,7 @@ namespace BrickBreaker
                 {
                     xSpeed *= -1;
                 }
+                paddleBounce.Play();
                 if (pMovingLeft)
                     xSpeed = -Math.Abs(xSpeed); 
                 else if (pMovingRight)
