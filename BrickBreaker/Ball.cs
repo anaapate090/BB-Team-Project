@@ -34,21 +34,22 @@ namespace BrickBreaker
 
         public bool BlockCollision(Block b)
         {
-            Rectangle blockRec = new Rectangle(b.x, b.y, b.width, b.height);
+            Rectangle blockRec = new Rectangle(b.x, b.y, 50, 25);
             Rectangle ballRec = new Rectangle(x, y, size, size);
 
             if (ballRec.IntersectsWith(blockRec))
             {
+                //if (x <= b.x + 50 && x >= b.x)
+                //{
+                //    xSpeed = xSpeed * -1;
+                //}
+                //else if (y >= b.y - size && y <= b.y + 25)
+                //{
 
-                if (x <= b.x + b.width && x >= b.x)
-                {
-                    ySpeed *= -1;
-                }
-                else if (y >= b.y - size && y <= b.y + b.height)
-                {
-                    xSpeed *= -1;
-                }
-
+                //    ySpeed = ySpeed * -1;
+                //}
+                xSpeed = xSpeed * -1;
+                ySpeed = ySpeed * -1;
                 brickBounce.Play();
 
             }
