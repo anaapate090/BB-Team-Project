@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// this works
+
 namespace BrickBreaker
 {
     public partial class Form1 : Form
@@ -16,7 +18,6 @@ namespace BrickBreaker
         {
             InitializeComponent();
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             // Start the program centred on the Menu Screen
