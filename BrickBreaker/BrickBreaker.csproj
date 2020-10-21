@@ -159,9 +159,7 @@
     <None Include="Resources\Elevator Ding-SoundBible.com-685385892.wav" />
   </ItemGroup>
   <ItemGroup>
-<
     <None Include="Resources\Ball_Bounce-Popup_Pixels-172648817.wav" />
-=
     <None Include="Resources\cobbleBrick-3hits.png" />
   </ItemGroup>
   <ItemGroup>
@@ -175,7 +173,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\title screen brick breaker.png" />
->
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
