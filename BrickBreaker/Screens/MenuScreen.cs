@@ -34,5 +34,16 @@ namespace BrickBreaker
             gs.Location = new Point((form.Width - gs.Width) / 2, (form.Height - gs.Height) / 2);
         }
 
+        private void playButton_Enter(object sender, EventArgs e)
+        {
+            playButton.BackColor = Color.LightSalmon;
+            exitButton.BackColor = Color.LightGray;
+        }
+
+        private void exitButton_Enter(object sender, EventArgs e)
+        {
+            playButton.BackColor = Color.LightGray;
+            exitButton.BackColor = Color.LightSalmon;
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿/*  Created by: 
  *  Project: Brick Breaker
  *  Date: 
- */ 
+ */
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,7 +22,7 @@ namespace BrickBreaker
         #region global values
 
         //player1 button control keys - DO NOT CHANGE
-        Boolean leftArrowDown, rightArrowDown;
+        Boolean leftArrowDown, rightArrowDown, pKeyDown, gamePaused;
 
         // Game values
         public static int lives;
@@ -151,7 +151,8 @@ namespace BrickBreaker
             lives = 3;
 
             //set all button presses to false.
-            leftArrowDown = rightArrowDown  = false;
+            leftArrowDown = rightArrowDown = pKeyDown = false;
+
 
             // setup starting paddle values and create paddle object
             int paddleWidth = 80;
@@ -171,10 +172,16 @@ namespace BrickBreaker
             int ballSize = 20;
             ball = new Ball(ballX, ballY, xSpeed, ySpeed, ballSize);
 
+            pauseLabel.Visible = false;
+            menuButton.Enabled = false;
+            menuButton.Visible = false;
+            resumeButton.Enabled = false;
+            resumeButton.Visible = false;
+
             #region Creates blocks for generic level. Need to replace with code that loads levels.
-            
+
             //TODO - replace all the code in this region eventually with code that loads levels from xml files
-            
+
             blocks.Clear();
             int x = 10;
 
@@ -202,7 +209,10 @@ namespace BrickBreaker
                 case Keys.Right:
                     rightArrowDown = true;
                     break;
-               
+                case Keys.P:
+                    pKeyDown = true;
+                    break;
+
                 default:
                     break;
             }
@@ -218,6 +228,9 @@ namespace BrickBreaker
                     break;
                 case Keys.Right:
                     rightArrowDown = false;
+                    break;
+                case Keys.P:
+                    pKeyDown = false;
                     break;
             
                 default:
@@ -280,28 +293,58 @@ namespace BrickBreaker
                     if (blocks.Count == 0)
                     {
                         gameTimer.Enabled = false;
+                        //OnWin();
                         OnEnd();
                     }
 
                     break;
                 }
             }
-
+            pauseScreenEnabled();
             //redraw the screen
             Refresh();
         }
 
+        private void menuButton_Click(object sender, EventArgs e)
+        {
+            gamePaused = false;
+            OnEnd();
+        }
+
+        private void resumeButton_Click(object sender, EventArgs e)
+        {
+            pauseLabel.Visible = false;
+            resumeButton.Enabled = false;
+            resumeButton.Visible = false;
+            menuButton.Enabled = false;
+            menuButton.Visible = false;
+            gamePaused = false;
+
+            this.Focus();
+        }
+        // Both below functions error out when given time to load
         public void OnEnd()
         {
-            // Goes to the game over screen
-            Form form = this.FindForm();
-            MenuScreen ps = new MenuScreen();
-            
-            ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
+            gameTimer.Enabled = false;
 
-            form.Controls.Add(ps);
-            form.Controls.Remove(this);
+            Form f = this.FindForm();
+            f.Controls.Remove(this);
+
+            GameOverScreen gos = new GameOverScreen();          
+            f.Controls.Add(gos);
+
+            gos.Focus();
         }
+        //public void OnWin()
+        //{
+        //    gameTimer.Enabled = false;
+        //    Form f = this.FindForm();
+
+        //    f.Controls.Remove(this);
+        //    playAgainButton ws = new playAgainButton();
+
+        //    f.Controls.Add(ws);
+        //}
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
@@ -344,7 +387,30 @@ namespace BrickBreaker
             }
            
         }
+
+        public void pauseScreenEnabled()
+        {
+            if (pKeyDown)
+            {
+                gamePaused = true;
+            }
+            if (gamePaused)
+            {
+                pauseLabel.Visible = true;
+                gameTimer.Enabled = false;
+                menuButton.Enabled = true;
+                menuButton.Visible = true;
+                resumeButton.Enabled = true;
+                resumeButton.Visible = true;
+            }
+            else
+            {
+                gameTimer.Enabled = true;
+            }
+        }
+
         
+
     }
 }
     
