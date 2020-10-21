@@ -31,6 +31,7 @@ namespace BrickBreaker
 
         int lives;
         int score;
+        int level = 1;
 
 
         // Paddle and Ball objects
@@ -198,7 +199,7 @@ namespace BrickBreaker
         private void levelLoad()
         {
            // XmlReader reader = XmlReader.Create("Resources/level1.xml");
-            XmlTextReader reader = new XmlTextReader("Resources/level1.xml");
+            XmlTextReader reader = new XmlTextReader("Resources/level" + level + ".xml");
            
 
             while (reader.Read())
@@ -364,11 +365,16 @@ namespace BrickBreaker
                         blocks.Remove(b);
                     }
 
-                    if (blocks.Count == 0)
+                    if (blocks.Count == 0 && level == 4)
                     {
                         gameTimer.Enabled = false;
                         //OnWin();
                         OnEnd();
+                    }
+                    else if(blocks.Count == 0)
+                    {
+                        level++;
+                        OnStart();
                     }
 
                     break;
@@ -413,16 +419,16 @@ namespace BrickBreaker
 
             gos.Focus();
         }
-        //public void OnWin()
-        //{
-        //    gameTimer.Enabled = false;
-        //    Form f = this.FindForm();
+        public void OnWin()
+        {
+            gameTimer.Stop();
+            Form f = this.FindForm();
 
-        //    f.Controls.Remove(this);
-        //    playAgainButton ws = new playAgainButton();
+            f.Controls.Remove(this);
+            playAgainButton ws = new playAgainButton();
 
-        //    f.Controls.Add(ws);
-        //}
+            f.Controls.Add(ws);
+        }
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
