@@ -38,7 +38,7 @@ namespace BrickBreaker
                 {
                     ySpeed *= -1;
                 }
-                else if (y <= b.y + b.height && y >= b.y)
+                else if (y >= b.y && y <= b.y + b.height)
                 {
                     xSpeed *= -1;
                 }
