@@ -1,7 +1,7 @@
 ﻿/*  Created by: 
  *  Project: Brick Breaker
  *  Date: 
- */ 
+ */
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -79,9 +79,9 @@ namespace BrickBreaker
             resumeButton.Visible = false;
 
             #region Creates blocks for generic level. Need to replace with code that loads levels.
-            
+
             //TODO - replace all the code in this region eventually with code that loads levels from xml files
-            
+
             blocks.Clear();
             int x = 10;
 
@@ -183,7 +183,8 @@ namespace BrickBreaker
                     if (blocks.Count == 0)
                     {
                         gameTimer.Enabled = false;
-                        OnWin();
+                        //OnWin();
+                        OnEnd();
                     }
 
                     break;
@@ -211,25 +212,29 @@ namespace BrickBreaker
 
             this.Focus();
         }
-
+        // Both below functions error out when given time to load
         public void OnEnd()
         {
-                Form f = this.FindForm();
-                GameOverScreen gos = new GameOverScreen();
+            gameTimer.Enabled = false;
 
-                f.Controls.Remove(this);
-                f.Controls.Add(gos);
-
-                gos.Focus();          
-        }
-        public void OnWin()
-        {
             Form f = this.FindForm();
-            playAgainButton ws = new playAgainButton();
-
             f.Controls.Remove(this);
-            f.Controls.Add(ws);
+
+            GameOverScreen gos = new GameOverScreen();          
+            f.Controls.Add(gos);
+
+            gos.Focus();
         }
+        //public void OnWin()
+        //{
+        //    gameTimer.Enabled = false;
+        //    Form f = this.FindForm();
+
+        //    f.Controls.Remove(this);
+        //    playAgainButton ws = new playAgainButton();
+
+        //    f.Controls.Add(ws);
+        //}
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {

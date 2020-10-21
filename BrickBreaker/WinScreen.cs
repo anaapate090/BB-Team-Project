@@ -29,6 +29,8 @@ namespace BrickBreaker
 
             f.Controls.Remove(this);
             f.Controls.Add(ms);
+
+            ms.Focus();
         }
 
         private void exitButton_Enter(object sender, EventArgs e)
