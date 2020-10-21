@@ -183,7 +183,7 @@ namespace BrickBreaker
                     if (blocks.Count == 0)
                     {
                         gameTimer.Enabled = false;
-                        OnEnd();
+                        OnWin();
                     }
 
                     break;
@@ -214,15 +214,21 @@ namespace BrickBreaker
 
         public void OnEnd()
         {
-                Form form = this.FindForm();
+                Form f = this.FindForm();
                 GameOverScreen gos = new GameOverScreen();
 
-                //gos.Location = new Point((form.Width - gos.Width) / 2, (form.Height - gos.Height) / 2);
-
-                form.Controls.Add(gos);
-                form.Controls.Remove(this);
+                f.Controls.Remove(this);
+                f.Controls.Add(gos);
 
                 gos.Focus();          
+        }
+        public void OnWin()
+        {
+            Form f = this.FindForm();
+            playAgainButton ws = new playAgainButton();
+
+            f.Controls.Remove(this);
+            f.Controls.Add(ws);
         }
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
