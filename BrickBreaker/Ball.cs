@@ -58,6 +58,10 @@ namespace BrickBreaker
                 {
                     ySpeed *= -1;
                 }
+                else if (y >= p.y && y <= p.y + p.height)
+                {
+                    xSpeed *= -1;
+                }
                 if (pMovingLeft)
                     xSpeed = -Math.Abs(xSpeed); 
                 else if (pMovingRight)
