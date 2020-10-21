@@ -41,7 +41,7 @@
             this.playButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.playButton.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playButton.Location = new System.Drawing.Point(276, 238);
-            this.playButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.playButton.Margin = new System.Windows.Forms.Padding(4);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(242, 96);
             this.playButton.TabIndex = 0;
@@ -56,7 +56,7 @@
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitButton.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.Location = new System.Drawing.Point(276, 343);
-            this.exitButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(4);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(242, 96);
             this.exitButton.TabIndex = 1;
@@ -69,9 +69,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackgroundImage = global::BrickBreaker.Properties.Resources.title_screen_brick_breaker;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.playButton);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MenuScreen";
             this.Size = new System.Drawing.Size(1067, 677);
             this.ResumeLayout(false);
