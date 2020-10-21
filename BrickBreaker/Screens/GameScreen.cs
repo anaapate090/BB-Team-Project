@@ -1,7 +1,7 @@
 ﻿/*  Created by: 
  *  Project: Brick Breaker
  *  Date: 
- */ 
+ */
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,8 +12,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+
+using System.Xml;
+using System.IO;
+
 using System.Threading;
 using BrickBreaker.Properties;
+
 
 namespace BrickBreaker
 {
@@ -22,10 +27,13 @@ namespace BrickBreaker
         #region global values
 
         //player1 button control keys - DO NOT CHANGE
-        Boolean leftArrowDown, rightArrowDown;
+        Boolean leftArrowDown, rightArrowDown, pKeyDown, gamePaused;
 
         // Game values
-        public static int lives;
+
+        int lives;
+        int score;
+
 
         // Paddle and Ball objects
         Paddle paddle;
@@ -46,8 +54,10 @@ namespace BrickBreaker
         public GameScreen()
         {
             InitializeComponent();
+
             OnStart();
-            IanMethod();
+
+            
         }
 
         public void IanMethod()
@@ -146,12 +156,18 @@ namespace BrickBreaker
 
         public void OnStart()
         {
-            
+
+            #region Global variables
+
             //set life counter
             lives = 3;
 
+            //set score counter
+            score = 0;
+
             //set all button presses to false.
-            leftArrowDown = rightArrowDown  = false;
+            leftArrowDown = rightArrowDown = pKeyDown = false;
+
 
             // setup starting paddle values and create paddle object
             int paddleWidth = 80;
@@ -170,25 +186,48 @@ namespace BrickBreaker
             int ySpeed = 6;
             int ballSize = 20;
             ball = new Ball(ballX, ballY, xSpeed, ySpeed, ballSize);
-
-            #region Creates blocks for generic level. Need to replace with code that loads levels.
-            
-            //TODO - replace all the code in this region eventually with code that loads levels from xml files
-            
-            blocks.Clear();
-            int x = 10;
-
-            while (blocks.Count < 12)
-            {
-                x += 57;
-                Block b1 = new Block(x, 10, 1);
-                blocks.Add(b1);
-            }
-
             #endregion
+
+            pauseLabel.Visible = false;
+            menuButton.Enabled = false;
+            menuButton.Visible = false;
+            resumeButton.Enabled = false;
+            resumeButton.Visible = false;
+            levelLoad();
 
             // start the game engine loop
             gameTimer.Enabled = true;
+        }
+
+        private void levelLoad()
+        {
+            //XmlReader reader = XmlReader.Create("Resources/level1.xml");
+            //reader.ReadStartElement("level");
+
+            //while (reader.Read())
+            //{
+            //    reader.ReadStartElement("brick");
+            //    if (reader.NodeType == XmlNodeType.Text)
+            //    {
+                    
+
+            //        reader.ReadToNextSibling("x");
+            //        int x = Convert.ToInt16(reader.ReadAttributeValue());
+
+            //        reader.ReadToNextSibling("y");
+            //        int y = Convert.ToInt16(reader.ReadAttributeValue());
+
+            //        reader.ReadToNextSibling("hp");
+            //        int hp = Convert.ToInt16(reader.ReadAttributeValue());
+
+            //        Block newBlock = new Block(x, y, hp);
+            //        blocks.Add(newBlock); 
+            //    }
+            //    reader.ReadEndElement();
+
+            //}
+            //reader.ReadEndElement();
+            //reader.Close();
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -202,7 +241,10 @@ namespace BrickBreaker
                 case Keys.Right:
                     rightArrowDown = true;
                     break;
-               
+                case Keys.P:
+                    pKeyDown = true;
+                    break;
+
                 default:
                     break;
             }
@@ -219,6 +261,9 @@ namespace BrickBreaker
                 case Keys.Right:
                     rightArrowDown = false;
                     break;
+                case Keys.P:
+                    pKeyDown = false;
+                    break;
             
                 default:
                     break;
@@ -227,12 +272,20 @@ namespace BrickBreaker
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            if(paddle.width > 80)
+            livesLabel.Text = "Lives: " + lives;
+            scoreLabel.Text = "Score: " + score;
+
+            IanMethod();
+
+            #region Move the paddle
+
+            if (paddle.width > 80)
             {
                 paddle.width--;
             }
 
             // Move the paddle
+
             if (leftArrowDown && paddle.x > 0)
             {
                 paddle.Move("left");
@@ -241,73 +294,131 @@ namespace BrickBreaker
             {
                 paddle.Move("right");
             }
+            #endregion
 
-            // Move ball
+            #region Move ball
             ball.Move();
+            #endregion
+
+
+            #region Check for collision with top and side walls
 
             IanMethod();
 
             // Check for collision with top and side walls
-            ball.WallCollision(this);
 
-            // Check for ball hitting bottom of screen
+            ball.WallCollision(this);
+            #endregion
+
+            #region Check for ball hitting bottom of screen
             if (ball.BottomCollision(this))
             {
                 lives--;
 
+                livesLabel.Text = "";
+                livesLabel.Text = "Lives: " + lives;
+
                 // Moves the ball back to origin
                 ball.x = ((paddle.x - (ball.size / 2)) + (paddle.width / 2));
                 ball.y = (this.Height - paddle.height) - 85;
+                #endregion
 
+
+                #region check if game over
 
                 if (lives == 0)
                 {
                     gameTimer.Enabled = false;
                     OnEnd();
                 }
+                #endregion
             }
 
-            // Check for collision of ball with paddle, (incl. paddle movement)
+            #region Check for collision of ball with paddle, (incl. paddle movement)
             ball.PaddleCollision(paddle, leftArrowDown, rightArrowDown);
+            #endregion
 
-            // Check if ball has collided with any blocks
+            #region Check if ball has collided with any blocks
             foreach (Block b in blocks)
             {
                 if (ball.BlockCollision(b))
                 {
-                    blocks.Remove(b);
+                    int health = b.hp;
+                    score++;
+                    health --;
+
+                    if (health == 0)
+                    {
+                        blocks.Remove(b);
+                    }
 
                     if (blocks.Count == 0)
                     {
                         gameTimer.Enabled = false;
+                        //OnWin();
                         OnEnd();
                     }
 
                     break;
                 }
             }
+            #endregion
+
+
+            pauseScreenEnabled();
 
             //redraw the screen
             Refresh();
         }
 
+        private void menuButton_Click(object sender, EventArgs e)
+        {
+            gamePaused = false;
+            OnEnd();
+        }
+
+        private void resumeButton_Click(object sender, EventArgs e)
+        {
+            pauseLabel.Visible = false;
+            resumeButton.Enabled = false;
+            resumeButton.Visible = false;
+            menuButton.Enabled = false;
+            menuButton.Visible = false;
+            gamePaused = false;
+
+            this.Focus();
+        }
+        // Both below functions error out when given time to load
         public void OnEnd()
         {
-            // Goes to the game over screen
-            Form form = this.FindForm();
-            MenuScreen ps = new MenuScreen();
-            
-            ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
+            gameTimer.Enabled = false;
 
-            form.Controls.Add(ps);
-            form.Controls.Remove(this);
+            Form f = this.FindForm();
+            f.Controls.Remove(this);
+
+            GameOverScreen gos = new GameOverScreen();          
+            f.Controls.Add(gos);
+
+            gos.Focus();
         }
+        //public void OnWin()
+        //{
+        //    gameTimer.Enabled = false;
+        //    Form f = this.FindForm();
+
+        //    f.Controls.Remove(this);
+        //    playAgainButton ws = new playAgainButton();
+
+        //    f.Controls.Add(ws);
+        //}
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            // Draws paddle
-            paddleBrush.Color = paddle.colour;
+            #region Draws paddle
+            paddleBrush.Color = Color.White;
             e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
+            #endregion
+
 
             // Draws blocks
             foreach (Block b in blocks)
@@ -330,8 +441,12 @@ namespace BrickBreaker
 
             }
 
-            // Draws ball
+
+            #region Draws ball
             e.Graphics.FillRectangle(ballBrush, ball.x, ball.y, ball.size, ball.size);
+
+            #endregion
+
 
 
             //Draws Powerup
@@ -344,7 +459,31 @@ namespace BrickBreaker
             }
            
         }
+
+        public void pauseScreenEnabled()
+        {
+            if (pKeyDown)
+            {
+                gamePaused = true;
+            }
+            if (gamePaused)
+            {
+                pauseLabel.Visible = true;
+                gameTimer.Enabled = false;
+                menuButton.Enabled = true;
+                menuButton.Visible = true;
+                resumeButton.Enabled = true;
+                resumeButton.Visible = true;
+            }
+            else
+            {
+                gameTimer.Enabled = true;
+            }
+
+        }
+
         
+
     }
 }
     
