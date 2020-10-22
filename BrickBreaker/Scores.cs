@@ -11,6 +11,7 @@ namespace BrickBreaker
         public string letter1;
         public string letter2;
         public string letter3;
+
         public Scores(string _letter1, string _letter2, string _letter3)
         {
             letter1 = _letter1;

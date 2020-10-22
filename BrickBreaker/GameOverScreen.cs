@@ -140,51 +140,10 @@ namespace BrickBreaker
             Application.Exit();
         }
 
-        private void playAgainButton_Enter(object sender, EventArgs e)
+        private void letter1Output_Click(object sender, EventArgs e)
         {
-            playAgainButton.BackColor = Color.LightSalmon;
-            exitButton.BackColor = Color.LightGray;
-        }
-
-        private void exitButton_Enter(object sender, EventArgs e)
-        {
-            playAgainButton.BackColor = Color.LightGray;
-            exitButton.BackColor = Color.LightSalmon;
-        }
-
-        private void GameOverScreen_Load(object sender, EventArgs e)
-        {
-            letter1Output.Text = "A";
-            letter2Output.Text = "A";
-            letter3Output.Text = "A";
-
-            #region counter setup
-            if (RightArrowDown == true)
-            {
-                upCounter = 0;
-                rightCounter++;
-            }
-            else if (UpArrowDown == true)
-            {
-                upCounter++;
-            }
-
-            if (rightCounter == 0)
-            {
-                letter3Output.ForeColor = Color.Black;
-                letter1Output.ForeColor = Color.Red;
-            }
-            else if (rightCounter == 1)
-            {
-                letter1Output.ForeColor = Color.Black;
-                letter2Output.ForeColor = Color.Red;
-            }
-            else if (rightCounter == 2)
-            {
-                letter2Output.ForeColor = Color.Black;
-                letter3Output.ForeColor = Color.Red;
-            }
-            #endregion
+            letter3Output.ForeColor = Color.Black;
+            letter1Output.ForeColor = Color.Red;
 
             #region first letter setup
             if (upCounter == 0 && rightCounter == 0)
@@ -292,6 +251,156 @@ namespace BrickBreaker
                 letter1Output.Text = "Z";
                 upCounter = 0;
             }
+            #endregion
+        }
+
+        private void playAgainButton_Enter(object sender, EventArgs e)
+        {
+            playAgainButton.BackColor = Color.LightSalmon;
+            exitButton.BackColor = Color.LightGray;
+        }
+
+        private void exitButton_Enter(object sender, EventArgs e)
+        {
+            playAgainButton.BackColor = Color.LightGray;
+            exitButton.BackColor = Color.LightSalmon;
+        }
+
+        private void GameOverScreen_Load(object sender, EventArgs e)
+        {
+            letter1Output.Text = "A";
+            letter2Output.Text = "A";
+            letter3Output.Text = "A";
+
+            #region counter setup
+            if (UpArrowDown == true)
+            {
+                upCounter++;
+            }
+
+            if (rightCounter == 0)
+            {
+                letter3Output.ForeColor = Color.Black;
+                letter1Output.ForeColor = Color.Red;
+            }
+            else if (rightCounter == 1)
+            {
+                letter1Output.ForeColor = Color.Black;
+                letter2Output.ForeColor = Color.Red;
+            }
+            else if (rightCounter == 2)
+            {
+                letter2Output.ForeColor = Color.Black;
+                letter3Output.ForeColor = Color.Red;
+            }
+            #endregion
+
+            #region first letter setup
+            //if (upCounter == 0 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "A";
+            //}
+            //else if (upCounter == 1 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "B";
+            //}
+            //else if (upCounter == 2 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "C";
+            //}
+            //else if (upCounter == 3 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "D";
+            //}
+            //else if (upCounter == 4 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "E";
+            //}
+            //else if (upCounter == 5 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "F";
+            //}
+            //else if (upCounter == 6 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "G";
+            //}
+            //else if (upCounter == 7 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "H";
+            //}
+            //else if (upCounter == 8 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "I";
+            //}
+            //else if (upCounter == 9 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "J";
+            //}
+            //else if (upCounter == 10 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "K";
+            //}
+            //else if (upCounter == 11 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "L";
+            //}
+            //else if (upCounter == 12 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "M";
+            //}
+            //else if (upCounter == 13 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "N";
+            //}
+            //else if (upCounter == 14 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "O";
+            //}
+            //else if (upCounter == 15 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "P";
+            //}
+            //else if (upCounter == 16 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "Q";
+            //}
+            //else if (upCounter == 17 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "R";
+            //}
+            //else if (upCounter == 18 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "S";
+            //}
+            //else if (upCounter == 19 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "T";
+            //}
+            //else if (upCounter == 20 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "U";
+            //}
+            //else if (upCounter == 21 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "V";
+            //}
+            //else if (upCounter == 22 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "W";
+            //}
+            //else if (upCounter == 23 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "X";
+            //}
+            //else if (upCounter == 24 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "Y";
+            //}
+            //else if (upCounter == 25 && rightCounter == 0)
+            //{
+            //    letter1Output.Text = "Z";
+            //    upCounter = 0;
+            //}
             #endregion
 
             #region second letter setup

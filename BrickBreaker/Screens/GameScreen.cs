@@ -33,7 +33,7 @@ namespace BrickBreaker
         // Game values
 
         int lives = 3;
-        int score = 0;
+        public static int score = 0;
         int level = 1;
         int counter = 1;
 
@@ -371,7 +371,7 @@ namespace BrickBreaker
 
                 paddle.width = 80;
 
-                powerupBall.RemoveAt(0);
+                //powerupBall.RemoveAt(0);
                 
                 paddle.x = this.Width / 2 - paddle.width / 2;
                 #endregion
@@ -396,6 +396,7 @@ namespace BrickBreaker
 
             #region Check for collision of ball with paddle, (incl. paddle movement)
             ball.PaddleCollision(paddle, leftArrowDown, rightArrowDown);
+
             if (powerupBall.Count() >= 1)
             {
                 powerupBall[0].PaddleCollision(paddle, leftArrowDown, rightArrowDown);
