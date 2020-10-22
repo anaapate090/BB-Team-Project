@@ -29,10 +29,10 @@ namespace BrickBreaker
 
         // Game values
 
-        int lives;
-        int score;
+        int lives = 3;
+        int score = 0;
         int level = 1;
-
+        
 
         // Paddle and Ball objects
         Paddle paddle;
@@ -53,6 +53,7 @@ namespace BrickBreaker
         public GameScreen()
         {
             InitializeComponent();
+            
 
             OnStart();      
         }
@@ -156,11 +157,7 @@ namespace BrickBreaker
 
             #region Global variables
 
-            //set life counter
-            lives = 3;
-
-            //set score counter
-            score = 0;
+           
 
             //set all button presses to false.
             leftArrowDown = rightArrowDown = pKeyDown = false;
