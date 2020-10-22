@@ -24,6 +24,9 @@ namespace BrickBreaker
     {
         #region global values
 
+
+        //New List for new happiness
+        List<Ball> powerupBall = new List<Ball>();
         //player1 button control keys - DO NOT CHANGE
         Boolean leftArrowDown, rightArrowDown, pKeyDown, gamePaused;
 
@@ -131,7 +134,8 @@ namespace BrickBreaker
                         int xSpeed = 6;
                         int ySpeed = 6;
                         int ballSize = 20;
-                        ball = new Ball(ballX, ballY, xSpeed, ySpeed, ballSize);
+                        Ball powerball = new Ball(ballX, ballY, xSpeed, ySpeed, ballSize);
+                        powerupBall.Add(powerball);
                     }
                         else if (d.type == "life")
                         {
@@ -458,7 +462,11 @@ namespace BrickBreaker
 
             #region Draws ball
             e.Graphics.FillRectangle(ballBrush, ball.x, ball.y, ball.size, ball.size);
-
+            // draws powerupball
+            if (powerupBall.Count() > 1)
+            {
+                e.Graphics.FillRectangle(ballBrush, ball.x, ball.y, ball.size, ball.size);
+            }
             #endregion
 
             //Draws Powerup
