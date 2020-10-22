@@ -56,7 +56,7 @@ namespace BrickBreaker
             Application.Exit();
         }
 
-        //resets XML sometimes!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //resets XML sometimes!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!(need to put all highscores(or top ten) in a global list and re-add each time)
         public void storeScore()
         {
 
@@ -347,12 +347,12 @@ namespace BrickBreaker
             }
         }
 
+
         private void exitButton_Enter(object sender, EventArgs e)
         {
             playAgainButton.BackColor = Color.LightGray;
             exitButton.BackColor = Color.LightSalmon;
         }
-
 
         private void GameOverScreen_Load(object sender, EventArgs e)
         {
