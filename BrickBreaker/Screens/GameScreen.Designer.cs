@@ -104,10 +104,10 @@
             this.pauseLabel.BackColor = System.Drawing.Color.DarkGray;
             this.pauseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
             this.pauseLabel.ForeColor = System.Drawing.Color.Firebrick;
-            this.pauseLabel.Location = new System.Drawing.Point(0, 264);
+            this.pauseLabel.Location = new System.Drawing.Point(384, 266);
             this.pauseLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.pauseLabel.Name = "pauseLabel";
-            this.pauseLabel.Size = new System.Drawing.Size(1068, 48);
+            this.pauseLabel.Size = new System.Drawing.Size(311, 48);
             this.pauseLabel.TabIndex = 3;
             this.pauseLabel.Text = "Game Paused";
             this.pauseLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

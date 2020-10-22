@@ -34,9 +34,7 @@ namespace BrickBreaker
         { 
             if (GameScreen.scores[1] > GameScreen.scores[0])
             {
-                nameOutput.Text += GameOverScreen.nameKeeper + "\n";
-                //WinScreen
-                nameOutput.Text += playAgainButton.nameKeeper1 + "\n";
+                
             }
         }
     }
