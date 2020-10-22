@@ -219,6 +219,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ScoreXML.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\cannonBall.png" />
   </ItemGroup>
   <ItemGroup>
