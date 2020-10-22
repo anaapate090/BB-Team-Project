@@ -68,8 +68,6 @@ namespace BrickBreaker
 
             int ballX = this.Width / 2 ;
             int ballY = this.Height - paddle.height - 80;
-            int xSpeed = 6;
-            int ySpeed = 6;
             int ballSize = 20;
 
             Random powerGen = new Random();
