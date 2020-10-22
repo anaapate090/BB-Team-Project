@@ -41,7 +41,6 @@ namespace BrickBreaker
             {
               
                 brickBounce.Play();
-
             }
 
             return blockRec.IntersectsWith(ballRec);         
@@ -54,10 +53,44 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(paddleRec))
             {
+                int ranDir;
+                //if (x >= p.x && x <= p.x + p.height / 4)
+                //{
+                //    ySpeed = -1;
+                //}
+                //else if (x >= p.x + p.height / 4 && x <= p.x + p.height / 2)
+                //{
+                //    ySpeed = -2;
+                //}
+                //else if (x >= p.x + p.height / 2 && x <= p.x + p.height * 0.75)
+                //{
+                //    ySpeed = -2;
+                //}
+                //else if (x >= p.x + p.height * 0.75 && x <= p.x + p.height)
+                //{
+                //    ySpeed = -1;
+                //}
+
+                ranDir = rand.Next(0, 4);
 
                 if (y + size >= p.y && y + size <= p.y + ySpeed + 2)
                 {
-                    ySpeed *= -1;
+                    if (ranDir == 0)
+                    {
+                        ySpeed = -2;
+                    }
+                    else if (ranDir == 1)
+                    {
+                        ySpeed = -4;
+                    }
+                    else if (ranDir == 2)
+                    {
+                        ySpeed = -6;
+                    }
+                    else if (ranDir == 3)
+                    {
+                        ySpeed = -8;
+                    }
                 }
                 else if (y >= p.y && y <= p.y + p.height)
                 {
@@ -78,18 +111,21 @@ namespace BrickBreaker
             {
                 wallBounce.Play();
                 xSpeed *= -1;
+                x = 1;
             }
             // Collision with right wall
             if (x >= (UC.Width - size))
             {
                 wallBounce.Play();
                 xSpeed *= -1;
+                x = (UC.Width - size - 1);
             }
             // Collision with top wall
             if (y <= 2)
             {
                 wallBounce.Play();
                 ySpeed *= -1;
+                y = 3;
             }
         }
 
