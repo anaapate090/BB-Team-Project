@@ -104,7 +104,6 @@ namespace BrickBreaker
                             {
                                 type = "big";
                                 c = Color.Green;
-
                             }
                             else if (powerupType == 5) // makes paddle faster
                             {
@@ -380,6 +379,8 @@ namespace BrickBreaker
                 ball.y = (this.Height - paddle.height) - 85;
 
                 paddle.width = 80;
+
+                paddle.speed = 5;
 
                 if (powerupBall.Count >= 1)
                 {
