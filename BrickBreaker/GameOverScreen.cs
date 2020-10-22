@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace BrickBreaker
 {
@@ -76,28 +77,7 @@ namespace BrickBreaker
 
         private void playAgainButton_Click(object sender, EventArgs e)
         {
-            #region store name
-            string letter1 = letter1Output.Text;
-            string letter2 = letter2Output.Text;
-            string letter3 = letter3Output.Text;
-
-            Scores newScores = new Scores(letter1, letter2, letter3);
-
-            // TODO - add object to global list
-            name.Add(newScores);
-
-            foreach (Scores n in name)
-            {
-                string l1 = n.letter1;
-                string l2 = n.letter2;
-                string l3 = n.letter3;
-
-                nameKeeper += l1 + l2 + l3;
-
-                HighScoreScreen hss = new HighScoreScreen();
-                hss.Show();
-            }
-            #endregion
+            storeScore();
 
             #region change screen
             Form f = this.FindForm();
@@ -114,36 +94,74 @@ namespace BrickBreaker
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-            #region store name
-            string letter1 = letter1Output.Text;
-            string letter2 = letter2Output.Text;
-            string letter3 = letter3Output.Text;
-
-            Scores newScores = new Scores(letter1, letter2, letter3);
-
-            // TODO - add object to global list
-            name.Add(newScores);
-
-            foreach (Scores n in name)
-            {
-                string l1 = n.letter1;
-                string l2 = n.letter2;
-                string l3 = n.letter3;
-
-                nameKeeper += l1 + l2 + l3;
-
-                HighScoreScreen hss = new HighScoreScreen();
-                hss.Show();
-            }
-            #endregion
+            storeScore();
 
             Application.Exit();
+        }
+        public void storeScore()
+        {
+            
+            string playerName = letter1Output.Text + letter2Output.Text + letter3Output.Text;
+            int score = GameScreen.score;
+
+            Scores newScores = new Scores(playerName, score);
+
+            name.Add(newScores);
+
+            XmlWriter writer = XmlWriter.Create("Resources/ScoreXML.xml", null);
+
+            writer.WriteStartElement("HighScores");
+
+            foreach (Scores s in name)
+            {
+                writer.WriteStartElement("Player");
+
+                writer.WriteElementString("name", s.name);
+                writer.WriteElementString("score", s.score + "");
+
+                writer.WriteEndElement();
+            }
+
+            writer.WriteEndElement();
+
+            writer.Close();
+
         }
 
         private void letter1Output_Click(object sender, EventArgs e)
         {
-            letter3Output.ForeColor = Color.Black;
-            letter1Output.ForeColor = Color.Red;
+            //change to use lists for letters!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            letter1Output.Text = "A";
+            letter2Output.Text = "A";
+            letter3Output.Text = "A";
+
+            #region counter setup
+            if (RightArrowDown == true)
+            {
+                upCounter = 0;
+                rightCounter++;
+            }
+            else if (UpArrowDown == true)
+            {
+                upCounter++;
+            }
+
+            if (rightCounter == 0)
+            {
+                letter3Output.ForeColor = Color.Black;
+                letter1Output.ForeColor = Color.Red;
+            }
+            else if (rightCounter == 1)
+            {
+                letter1Output.ForeColor = Color.Black;
+                letter2Output.ForeColor = Color.Red;
+            }
+            else if (rightCounter == 2)
+            {
+                letter2Output.ForeColor = Color.Black;
+                letter3Output.ForeColor = Color.Red;
+            }
+            #endregion
 
             #region first letter setup
             if (upCounter == 0 && rightCounter == 0)
