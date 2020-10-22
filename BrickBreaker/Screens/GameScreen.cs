@@ -28,7 +28,7 @@ namespace BrickBreaker
         //New List for new happiness
         List<Ball> powerupBall = new List<Ball>();
         //player1 button control keys - DO NOT CHANGE
-        Boolean leftArrowDown, rightArrowDown, pKeyDown, spaceDown, gamePaused;
+        Boolean leftArrowDown, rightArrowDown, escKeyDown, spaceDown, gamePaused;
 
         // Game values
 
@@ -49,10 +49,6 @@ namespace BrickBreaker
         List<Powerups> Powerup = new List<Powerups>();
 
         // Brushes
-        SolidBrush paddleBrush = new SolidBrush(Color.White);
-        SolidBrush ballBrush = new SolidBrush(Color.White);
-        SolidBrush blockBrush = new SolidBrush(Color.Red);
-        SolidBrush powerballBrush = new SolidBrush(Color.White);
         
 
         #endregion
@@ -72,8 +68,6 @@ namespace BrickBreaker
 
             int ballX = this.Width / 2 ;
             int ballY = this.Height - paddle.height - 80;
-            int xSpeed = 6;
-            int ySpeed = 6;
             int ballSize = 20;
 
             Random powerGen = new Random();
@@ -176,7 +170,7 @@ namespace BrickBreaker
            
 
             //set all button presses to false.
-            leftArrowDown = rightArrowDown = pKeyDown = false;
+            leftArrowDown = rightArrowDown = escKeyDown = false;
 
 
             // setup starting paddle values and create paddle object
@@ -250,8 +244,8 @@ namespace BrickBreaker
                 case Keys.Right:
                     rightArrowDown = true;
                     break;
-                case Keys.P:
-                    pKeyDown = true;
+                case Keys.Escape:
+                    escKeyDown = true;
                     break;
                 case Keys.Space:
                     spaceDown = true;
@@ -273,8 +267,8 @@ namespace BrickBreaker
                 case Keys.Right:
                     rightArrowDown = false;
                     break;
-                case Keys.P:
-                    pKeyDown = false;
+                case Keys.Escape:
+                    escKeyDown = false;
                     break;
                 case Keys.Space:
                     spaceDown = false;
@@ -379,6 +373,8 @@ namespace BrickBreaker
                 paddle.width = 80;
 
                 powerupBall.RemoveAt(0);
+                
+                paddle.x = this.Width / 2 - paddle.width / 2;
                 #endregion
 
 
@@ -430,7 +426,7 @@ namespace BrickBreaker
                     }
 
                     b.hp--;
-                    score++;
+                    score += 100;
                   
 
                     if (b.hp == 0)
@@ -510,8 +506,7 @@ namespace BrickBreaker
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             #region Draws paddle
-            paddleBrush.Color = Color.White;
-            e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
+            e.Graphics.DrawImage(Properties.Resources.paddleSword, paddle.x, paddle.y, paddle.width, paddle.height);
             #endregion
 
 
@@ -533,13 +528,13 @@ namespace BrickBreaker
             }
 
             #region Draws ball
-            e.Graphics.FillRectangle(ballBrush, ball.x, ball.y, ball.size, ball.size);
+            e.Graphics.DrawImage(Resources.cannonBall, ball.x, ball.y, ball.size, ball.size);
             // draws powerupball
             if (powerupBall.Count() >= 1)
             {
                 foreach (Ball p in powerupBall)
                 {
-                    e.Graphics.FillRectangle(powerballBrush, p.x, p.y, p.size, p.size);
+                    e.Graphics.DrawImage(Resources.cannonBall, p.x, p.y, p.size, p.size);
                 }
             }
 
@@ -558,7 +553,7 @@ namespace BrickBreaker
 
         public void pauseScreenEnabled()
         {
-            if (pKeyDown)
+            if (escKeyDown)
             {
                 gamePaused = true;
             }

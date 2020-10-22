@@ -72,6 +72,16 @@ namespace BrickBreaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cannonBall {
+            get {
+                object obj = ResourceManager.GetObject("cannonBall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cobbleBrick_1hit {
             get {
                 object obj = ResourceManager.GetObject("cobbleBrick_1hit", resourceCulture);
@@ -262,6 +272,16 @@ namespace BrickBreaker.Properties {
         internal static System.IO.UnmanagedMemoryStream paddleSound {
             get {
                 return ResourceManager.GetStream("paddleSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap paddleSword {
+            get {
+                object obj = ResourceManager.GetObject("paddleSword", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
