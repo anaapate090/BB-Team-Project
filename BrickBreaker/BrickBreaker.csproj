@@ -168,6 +168,7 @@
     <None Include="Resources\level5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\game screen back.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\A-Tone-His_Self-1266414414.wav" />
@@ -218,6 +219,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ScoreXML.xml" />
+    <None Include="Resources\cannonBall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paddleSword.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

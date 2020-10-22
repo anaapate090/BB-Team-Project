@@ -105,6 +105,8 @@ namespace BrickBreaker
             f.Controls.Remove(this);
             f.Controls.Add(ms);
 
+            ms.Location = new Point((f.Width - ms.Width) / 2, (f.Height - ms.Height) / 2);
+
             ms.Focus();
             #endregion
         }
