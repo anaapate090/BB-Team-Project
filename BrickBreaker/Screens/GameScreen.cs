@@ -469,14 +469,24 @@ namespace BrickBreaker
 
         private void resumeButton_Click(object sender, EventArgs e)
         {
-            pauseLabel.Visible = false;
-            resumeButton.Enabled = false;
-            resumeButton.Visible = false;
-            menuButton.Enabled = false;
-            menuButton.Visible = false;
-            gamePaused = false;
-            gameTimer.Enabled = true;
-            this.Focus();
+            if (level < 6)
+            {
+                gameTimer.Enabled = true;
+                pauseLabel.Visible = false;
+                resumeButton.Enabled = false;
+                resumeButton.Visible = false;
+                menuButton.Enabled = false;
+                menuButton.Visible = false;
+                gamePaused = false;
+                this.Focus();
+            }
+            else
+            {
+                Application.Exit();
+            }
+
+
+
         }
         // Both below functions error out when given time to load
         public void OnEnd()
@@ -495,15 +505,26 @@ namespace BrickBreaker
         }
         public void OnWin()
         {
+
             gameTimer.Stop();
-            Form f = this.FindForm();
 
-            f.Controls.Remove(this);
-            playAgainButton ws = new playAgainButton();
+            pauseLabel.Visible = true;
+            pauseLabel.Text = "You Win!";
+            menuButton.Enabled = true;
+            menuButton.Visible = true;
+            resumeButton.Enabled = true;
+            resumeButton.Visible = true;
+            resumeButton.Text = "Quit Game";
 
-            ws.Location = new Point((f.Width - ws.Width) / 2, (f.Height - ws.Height) / 2);
+            //gameTimer.Stop();
+            //Form f = this.FindForm();
 
-            f.Controls.Add(ws);
+            //f.Controls.Remove(this);
+            //playAgainButton ws = new playAgainButton();
+
+            //ws.Location = new Point((f.Width - ws.Width) / 2, (f.Height - ws.Height) / 2);
+
+            //f.Controls.Add(ws);
         }
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
