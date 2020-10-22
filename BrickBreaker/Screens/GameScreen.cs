@@ -35,13 +35,13 @@ namespace BrickBreaker
         int lives = 3;
         int score = 0;
         int level = 1;
+        int counter = 1;
         
         // Paddle and Ball objects
         Paddle paddle;
         Ball ball;
 
-        //Powerball objct
-
+        
         
 
         // list of all blocks for current level
@@ -132,9 +132,11 @@ namespace BrickBreaker
                         else if (d.type == "ball")
                         {
                          Rectangle ballRec = new Rectangle(ball.x, ball.y, ball.size, ball.size);
-                        
-                        Ball powerball = new Ball(this.Width/2 - 10, this.Height/2 + 80, 6, 6, ballSize);
-                        powerupBall.Add(powerball);
+                        if (powerupBall.Count == 0)
+                        {
+                            Ball powerball = new Ball(this.Width / 2 - 10, this.Height / 2 + 80, -6, -6, ballSize);
+                            powerupBall.Add(powerball);
+                        }
                     }
                         else if (d.type == "life")
                         {
@@ -142,7 +144,7 @@ namespace BrickBreaker
                         }
                         else if (d.type == "big")
                         {
-                         paddle.width += 80;
+                         paddle.width += 100;
                         d.y = this.Width + 1;
                         }
                         else if (d.type == "fast")
@@ -286,7 +288,7 @@ namespace BrickBreaker
 
             #region Move the paddle
 
-            if (paddle.width > 80)
+            if (paddle.width > 80 && counter %5 == 0)
             {
                 paddle.width--;
             }
@@ -347,6 +349,11 @@ namespace BrickBreaker
             // Check for collision with top and side walls
 
             ball.WallCollision(this);
+
+            if (powerupBall.Count() >= 1)
+            {
+                powerupBall[0].WallCollision(this);
+            }
             #endregion
 
             #region Check for ball hitting bottom of screen
@@ -363,8 +370,11 @@ namespace BrickBreaker
                 ball.x = ((paddle.x - (ball.size / 2)) + (paddle.width / 2));
                 ball.y = (this.Height - paddle.height) - 85;
 
-                paddle.x = this.Width / 2 - paddle.width / 2;
+                paddle.width = 80;
 
+                powerupBall.RemoveAt(0);
+                
+                paddle.x = this.Width / 2 - paddle.width / 2;
                 #endregion
 
 
@@ -377,9 +387,18 @@ namespace BrickBreaker
                 }
                 #endregion
             }
+            int index = Powerup.FindIndex(b => b.y > this.Height);
+            if (powerupBall.Count() >= 1 && index >= 0)
+            {
+                powerupBall.RemoveAt(index);
+            }
 
             #region Check for collision of ball with paddle, (incl. paddle movement)
             ball.PaddleCollision(paddle, leftArrowDown, rightArrowDown);
+            if (powerupBall.Count() >= 1)
+            {
+                powerupBall[0].PaddleCollision(paddle, leftArrowDown, rightArrowDown);
+            }
             #endregion
 
             #region Check if ball has collided with any blocks
@@ -434,7 +453,7 @@ namespace BrickBreaker
 
 
             pauseScreenEnabled();
-
+            counter++;
             //redraw the screen
             Refresh();
         }
