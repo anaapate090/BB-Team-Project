@@ -368,8 +368,8 @@ namespace BrickBreaker
                     if (blocks.Count == 0 && level == 4)
                     {
                         gameTimer.Enabled = false;
-                        //OnWin();
-                        OnEnd();
+                        OnWin();
+                        
                     }
                     else if(blocks.Count == 0)
                     {
@@ -417,6 +417,8 @@ namespace BrickBreaker
             GameOverScreen gos = new GameOverScreen();          
             f.Controls.Add(gos);
 
+            gos.Location = new Point((f.Width - gos.Width) / 2, (f.Height - gos.Height) / 2);
+
             gos.Focus();
         }
         public void OnWin()
@@ -426,6 +428,8 @@ namespace BrickBreaker
 
             f.Controls.Remove(this);
             playAgainButton ws = new playAgainButton();
+
+            ws.Location = new Point((f.Width - ws.Width) / 2, (f.Height - ws.Height) / 2);
 
             f.Controls.Add(ws);
         }
