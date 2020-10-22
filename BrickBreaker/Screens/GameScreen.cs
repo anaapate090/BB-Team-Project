@@ -302,7 +302,13 @@ namespace BrickBreaker
                 paddle.Move("right");
             }
 
-            if(ball.xSpeed == 0 && ball.ySpeed == 00 && spaceDown == true)
+            if(ball.xSpeed == 0 && ball.ySpeed == 00 && spaceDown == true && leftArrowDown == true)
+            {
+                ball.xSpeed = -6;
+                ball.ySpeed = 6;
+            }
+
+            else if(ball.xSpeed == 0 && ball.ySpeed == 00 && spaceDown == true)
             {
                 ball.xSpeed = 6;
                 ball.ySpeed = 6;
