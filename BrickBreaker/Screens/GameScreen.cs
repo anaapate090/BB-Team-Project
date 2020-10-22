@@ -25,7 +25,7 @@ namespace BrickBreaker
         #region global values
 
         //player1 button control keys - DO NOT CHANGE
-        Boolean leftArrowDown, rightArrowDown, pKeyDown, gamePaused;
+        Boolean leftArrowDown, rightArrowDown, pKeyDown, spaceDown, gamePaused;
 
         // Game values
 
@@ -33,7 +33,6 @@ namespace BrickBreaker
         int score = 0;
         int level = 1;
         
-
         // Paddle and Ball objects
         Paddle paddle;
         Ball ball;
@@ -176,8 +175,8 @@ namespace BrickBreaker
             int ballY = this.Height - paddle.height - 80;
 
             // Creates a new ball
-            int xSpeed = 6;
-            int ySpeed = 6;
+            int xSpeed = 0;
+            int ySpeed = 0;
             int ballSize = 20;
             ball = new Ball(ballX, ballY, xSpeed, ySpeed, ballSize);
             #endregion
@@ -195,7 +194,7 @@ namespace BrickBreaker
 
         private void levelLoad()
         {
-           // XmlReader reader = XmlReader.Create("Resources/level1.xml");
+          
             XmlTextReader reader = new XmlTextReader("Resources/level" + level + ".xml");
            
 
@@ -235,6 +234,9 @@ namespace BrickBreaker
                 case Keys.P:
                     pKeyDown = true;
                     break;
+                case Keys.Space:
+                    spaceDown = true;
+                    break;
 
                 default:
                     break;
@@ -255,7 +257,10 @@ namespace BrickBreaker
                 case Keys.P:
                     pKeyDown = false;
                     break;
-            
+                case Keys.Space:
+                    spaceDown = false;
+                    break;
+
                 default:
                     break;
             }
@@ -277,14 +282,32 @@ namespace BrickBreaker
 
             // Move the paddle
 
-            if (leftArrowDown && paddle.x > 0)
+            if (leftArrowDown && paddle.x > 0 && ball.xSpeed == 0 &&ball.ySpeed == 0)
+            {
+                paddle.Move("left");
+                ball.x = paddle.x + paddle.width / 2 - 10;
+            }
+            if (rightArrowDown && paddle.x < (this.Width - paddle.width) && ball.xSpeed == 0 && ball.ySpeed == 0)
+            {
+                paddle.Move("right");
+                ball.x = paddle.x + paddle.width / 2 - 10;
+            }
+
+            else if (leftArrowDown && paddle.x > 0)
             {
                 paddle.Move("left");
             }
-            if (rightArrowDown && paddle.x < (this.Width - paddle.width))
+            else if (rightArrowDown && paddle.x < (this.Width - paddle.width))
             {
                 paddle.Move("right");
             }
+
+            if(ball.xSpeed == 0 && ball.ySpeed == 00 && spaceDown == true)
+            {
+                ball.xSpeed = 6;
+                ball.ySpeed = 6;
+            }
+
             #endregion
 
             #region Move ball
@@ -309,6 +332,8 @@ namespace BrickBreaker
                 livesLabel.Text = "";
                 livesLabel.Text = "Lives: " + lives;
 
+                ball.xSpeed = 0;
+                ball.ySpeed = 0;
                 // Moves the ball back to origin
                 ball.x = ((paddle.x - (ball.size / 2)) + (paddle.width / 2));
                 ball.y = (this.Height - paddle.height) - 85;
@@ -493,9 +518,6 @@ namespace BrickBreaker
             }
 
         }
-
-        
-
     }
 }
     
