@@ -36,7 +36,7 @@ namespace BrickBreaker
         int score = 0;
         int level = 1;
         int counter = 1;
-        
+
         // Paddle and Ball objects
         Paddle paddle;
         Ball ball;
@@ -47,18 +47,18 @@ namespace BrickBreaker
         // list of all blocks for current level
         List<Block> blocks = new List<Block>();
         List<Powerups> Powerup = new List<Powerups>();
+        public static List<int> scores = new List<int>();
 
         // Brushes
-        
 
         #endregion
 
         public GameScreen()
         {
             InitializeComponent();
-            
 
-            OnStart();      
+            OnStart();
+
         }
 
         public void IanMethod()
@@ -84,6 +84,7 @@ namespace BrickBreaker
                         if (powerupType == 1) // add 300 points
                         {
                             type = "points";
+
                             c = Color.Blue;
                         }
                         else if (powerupType == 2) // add another ball
@@ -100,7 +101,7 @@ namespace BrickBreaker
                         {
                             type = "big";
                             c = Color.Green;
-                            
+
                         }
                         else if (powerupType == 5) // makes paddle faster
                         {
@@ -118,13 +119,14 @@ namespace BrickBreaker
             {
                 p.Move(3);
             }
-                foreach (Powerups d in Powerup)
-                {
-                    Rectangle powerRec = new Rectangle(d.x, d.y, d.size, d.size);
-                    Rectangle paddleRec = new Rectangle(paddle.x, paddle.y, paddle.width, paddle.height);
+            foreach (Powerups d in Powerup)
+            {
+                Rectangle powerRec = new Rectangle(d.x, d.y, d.size, d.size);
+                Rectangle paddleRec = new Rectangle(paddle.x, paddle.y, paddle.width, paddle.height);
 
-                    if (powerRec.IntersectsWith(paddleRec))
-                    {
+                if (powerRec.IntersectsWith(paddleRec))
+                {
+
                         if (d.type == "points")
                         {
                         score += 300;
@@ -145,22 +147,21 @@ namespace BrickBreaker
                         else if (d.type == "big")
                         {
                          paddle.width += 100;
-                        d.y = this.Width + 1;
-                        }
-                        else if (d.type == "fast")
-                        {
-                        paddle.speed += 1;
-                        }
-                    d.y = this.Height + 1;
+                   
                     }
+                    else if (d.type == "fast")
+                    {
+                        paddle.speed += 1;
+                    }
+                    d.y = this.Height + 1;
                 }
+            }
             int index = Powerup.FindIndex(b => b.y > this.Height);
             if (index >= 0 && Powerup.Count() > 0)
             {
                 Powerup.RemoveAt(index);
             }
         }
-        
 
         public void OnStart()
         {
@@ -199,39 +200,38 @@ namespace BrickBreaker
             menuButton.Visible = false;
             resumeButton.Enabled = false;
             resumeButton.Visible = false;
-            levelLoad();
+            TsunamiLevelLoad();
 
             // start the game engine loop
             gameTimer.Enabled = true;
         }
 
-        private void levelLoad()
+        private void TsunamiLevelLoad()
         {
-          
+  
             XmlTextReader reader = new XmlTextReader("Resources/level" + level + ".xml");
-           
 
-            while (reader.Read())
-            {
-               
-                if (reader.NodeType == XmlNodeType.Text)
+
+                while (reader.Read())
                 {
-                    int x = Convert.ToInt32(reader.ReadString());
 
-                    reader.ReadToNextSibling("y");
-                    int y = Convert.ToInt32(reader.ReadString());
+                    if (reader.NodeType == XmlNodeType.Text)
+                    {
+                        int x = Convert.ToInt32(reader.ReadString());
 
-                    reader.ReadToNextSibling("hp");
-                    int hp = Convert.ToInt32(reader.ReadString());
+                        reader.ReadToNextSibling("y");
+                        int y = Convert.ToInt32(reader.ReadString());
+
+                        reader.ReadToNextSibling("hp");
+                        int hp = Convert.ToInt32(reader.ReadString());
 
 
-                    Block newBlock = new Block(x, y, hp);
-                    blocks.Add(newBlock);
+                        Block newBlock = new Block(x, y, hp);
+                        blocks.Add(newBlock);
+                    }
                 }
-              
+
             }
-            
-        }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
@@ -341,7 +341,6 @@ namespace BrickBreaker
             }
             #endregion
 
-
             #region Check for collision with top and side walls
 
             IanMethod();
@@ -377,11 +376,13 @@ namespace BrickBreaker
                 paddle.x = this.Width / 2 - paddle.width / 2;
                 #endregion
 
-
                 #region check if game over
 
                 if (lives == 0)
                 {
+                    scores.Add(score);
+                    scores.Sort();
+
                     gameTimer.Enabled = false;
                     OnEnd();
                 }
@@ -426,16 +427,18 @@ namespace BrickBreaker
                     }
 
                     b.hp--;
+
                     score += 100;
-                  
 
                     if (b.hp == 0)
                     {
                         blocks.Remove(b);
                     }
 
-                    if (blocks.Count == 0 && level == 4)
+                    if (blocks.Count == 0 && level == 5)
+
                     {
+
                         gameTimer.Enabled = false;
                         OnWin();
                         
@@ -483,7 +486,7 @@ namespace BrickBreaker
             Form f = this.FindForm();
             f.Controls.Remove(this);
 
-            GameOverScreen gos = new GameOverScreen();          
+            GameOverScreen gos = new GameOverScreen();
             f.Controls.Add(gos);
 
             gos.Location = new Point((f.Width - gos.Width) / 2, (f.Height - gos.Height) / 2);
@@ -513,11 +516,11 @@ namespace BrickBreaker
             // Draws blocks
             foreach (Block b in blocks)
             {
-                if(b.hp == 1)
+                if (b.hp == 1)
                 {
                     e.Graphics.DrawImage(Properties.Resources.cobbleBrick_1hit, b.x, b.y, 50, 25);
                 }
-                else if(b.hp == 2)
+                else if (b.hp == 2)
                 {
                     e.Graphics.DrawImage(Properties.Resources.cobbleBrick_2hits, b.x, b.y, 50, 25);
                 }
@@ -548,7 +551,7 @@ namespace BrickBreaker
                     e.Graphics.FillRectangle(p.powerupBrush, p.x, p.y, p.size, p.size);
                 }
             }
-           
+
         }
 
         public void pauseScreenEnabled()
@@ -574,5 +577,5 @@ namespace BrickBreaker
         }
     }
 }
-    
+
 
