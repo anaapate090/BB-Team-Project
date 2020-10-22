@@ -30,7 +30,8 @@ namespace BrickBreaker
         // Game values
 
         int lives;
-        int score;
+        public static int score;
+        int level = 1;
 
 
         // Paddle and Ball objects
@@ -40,20 +41,18 @@ namespace BrickBreaker
         // list of all blocks for current level
         List<Block> blocks = new List<Block>();
         List<Powerups> Powerup = new List<Powerups>();
+        public static List<int> scores = new List<int>();
 
         // Brushes
         SolidBrush paddleBrush = new SolidBrush(Color.White);
         SolidBrush ballBrush = new SolidBrush(Color.White);
         SolidBrush blockBrush = new SolidBrush(Color.Red);
-        
-
         #endregion
 
         public GameScreen()
         {
             InitializeComponent();
-
-            OnStart();      
+            OnStart();
         }
 
         public void IanMethod()
@@ -72,13 +71,10 @@ namespace BrickBreaker
 
                     if (powerupChance == 1)
                     {
-
-
-
                         if (powerupType == 1) // add 300 points
                         {
                             type = "points";
-                            
+
                         }
                         else if (powerupType == 2) // add another ball
                         {
@@ -93,7 +89,7 @@ namespace BrickBreaker
                         {
                             type = "big";
                             c = Color.Green;
-                            
+
                         }
                         else if (powerupType == 5) // makes paddle faster
                         {
@@ -111,44 +107,43 @@ namespace BrickBreaker
             {
                 p.Move(3);
             }
-                foreach (Powerups d in Powerup)
+            foreach (Powerups d in Powerup)
+            {
+                Rectangle powerRec = new Rectangle(d.x, d.y, d.size, d.size);
+                Rectangle paddleRec = new Rectangle(paddle.x, paddle.y, paddle.width, paddle.height);
+
+                if (powerRec.IntersectsWith(paddleRec))
                 {
-                    Rectangle powerRec = new Rectangle(d.x, d.y, d.size, d.size);
-                    Rectangle paddleRec = new Rectangle(paddle.x, paddle.y, paddle.width, paddle.height);
-
-                    if (powerRec.IntersectsWith(paddleRec))
+                    if (d.type == "points")
                     {
-                        if (d.type == "points")
-                        {
-                        
-                        }
-                        else if (d.type == "ball")
-                        {
 
-                        }
-                        else if (d.type == "life")
-                        {
-                            lives++;
-                        }
-                        else if (d.type == "big")
-                        {
-                         paddle.width += 80;
-                        d.y = this.Width + 1;
-                        }
-                        else if (d.type == "fast")
-                        {
-                        paddle.speed += 1;
-                        }
-                    d.y = this.Height + 1;
                     }
+                    else if (d.type == "ball")
+                    {
+
+                    }
+                    else if (d.type == "life")
+                    {
+                        lives++;
+                    }
+                    else if (d.type == "big")
+                    {
+                        paddle.width += 80;
+                        d.y = this.Width + 1;
+                    }
+                    else if (d.type == "fast")
+                    {
+                        paddle.speed += 1;
+                    }
+                    d.y = this.Height + 1;
                 }
+            }
             int index = Powerup.FindIndex(b => b.y > this.Height);
             if (index >= 0 && Powerup.Count() > 0)
             {
                 Powerup.RemoveAt(index);
             }
         }
-        
 
         public void OnStart()
         {
@@ -189,39 +184,36 @@ namespace BrickBreaker
             menuButton.Visible = false;
             resumeButton.Enabled = false;
             resumeButton.Visible = false;
-            levelLoad();
+            TsunamiLevelLoad();
 
             // start the game engine loop
             gameTimer.Enabled = true;
         }
 
-        private void levelLoad()
+        private void TsunamiLevelLoad()
         {
-           // XmlReader reader = XmlReader.Create("Resources/level1.xml");
-            XmlTextReader reader = new XmlTextReader("Resources/level1.xml");
-           
+                XmlTextReader reader = new XmlTextReader("Resources/level1.xml");
 
-            while (reader.Read())
-            {
-               
-                if (reader.NodeType == XmlNodeType.Text)
+                while (reader.Read())
                 {
-                    int x = Convert.ToInt32(reader.ReadString());
 
-                    reader.ReadToNextSibling("y");
-                    int y = Convert.ToInt32(reader.ReadString());
+                    if (reader.NodeType == XmlNodeType.Text)
+                    {
+                        int x = Convert.ToInt32(reader.ReadString());
 
-                    reader.ReadToNextSibling("hp");
-                    int hp = Convert.ToInt32(reader.ReadString());
+                        reader.ReadToNextSibling("y");
+                        int y = Convert.ToInt32(reader.ReadString());
+
+                        reader.ReadToNextSibling("hp");
+                        int hp = Convert.ToInt32(reader.ReadString());
 
 
-                    Block newBlock = new Block(x, y, hp);
-                    blocks.Add(newBlock);
+                        Block newBlock = new Block(x, y, hp);
+                        blocks.Add(newBlock);
+                    }
                 }
-              
+
             }
-            
-        }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
@@ -257,7 +249,7 @@ namespace BrickBreaker
                 case Keys.P:
                     pKeyDown = false;
                     break;
-            
+
                 default:
                     break;
             }
@@ -293,7 +285,6 @@ namespace BrickBreaker
             ball.Move();
             #endregion
 
-
             #region Check for collision with top and side walls
 
             IanMethod();
@@ -316,11 +307,13 @@ namespace BrickBreaker
                 ball.y = (this.Height - paddle.height) - 85;
                 #endregion
 
-
                 #region check if game over
 
                 if (lives == 0)
                 {
+                    scores.Add(score);
+                    scores.Sort();
+
                     gameTimer.Enabled = false;
                     OnEnd();
                 }
@@ -357,15 +350,16 @@ namespace BrickBreaker
 
                     b.hp--;
                     score++;
-                  
+
 
                     if (b.hp == 0)
                     {
                         blocks.Remove(b);
                     }
 
-                    if (blocks.Count == 0)
+                    if (blocks.Count() == 0)
                     {
+
                         gameTimer.Enabled = false;
                         //OnWin();
                         OnEnd();
@@ -408,7 +402,7 @@ namespace BrickBreaker
             Form f = this.FindForm();
             f.Controls.Remove(this);
 
-            GameOverScreen gos = new GameOverScreen();          
+            GameOverScreen gos = new GameOverScreen();
             f.Controls.Add(gos);
 
             gos.Focus();
@@ -435,11 +429,11 @@ namespace BrickBreaker
             // Draws blocks
             foreach (Block b in blocks)
             {
-                if(b.hp == 1)
+                if (b.hp == 1)
                 {
                     e.Graphics.DrawImage(Properties.Resources.cobbleBrick_1hit, b.x, b.y, 50, 25);
                 }
-                else if(b.hp == 2)
+                else if (b.hp == 2)
                 {
                     e.Graphics.DrawImage(Properties.Resources.cobbleBrick_2hits, b.x, b.y, 50, 25);
                 }
@@ -462,7 +456,7 @@ namespace BrickBreaker
                     e.Graphics.FillRectangle(p.powerupBrush, p.x, p.y, p.size, p.size);
                 }
             }
-           
+
         }
 
         public void pauseScreenEnabled()
@@ -487,9 +481,9 @@ namespace BrickBreaker
 
         }
 
-        
+
 
     }
 }
-    
+
 

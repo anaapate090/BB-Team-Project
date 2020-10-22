@@ -61,15 +61,15 @@ namespace BrickBreaker.Properties {
         }
         
         /// <summary>
-
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream breakSound {
             get {
                 return ResourceManager.GetStream("breakSound", resourceCulture);
-                }
-                }
-
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap cobbleBrick_1hit {
@@ -80,15 +80,6 @@ namespace BrickBreaker.Properties {
         }
         
         /// <summary>
-
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream paddleSound {
-            get {
-                return ResourceManager.GetStream("paddleSound", resourceCulture);
-                }
-                }
-
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap cobbleBrick_2hits {
@@ -99,15 +90,6 @@ namespace BrickBreaker.Properties {
         }
         
         /// <summary>
-
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream wallSound {
-            get {
-                return ResourceManager.GetStream("wallSound", resourceCulture);
-                }
-                }
-
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap cobbleBrick_3hits {
@@ -124,31 +106,36 @@ namespace BrickBreaker.Properties {
         ///    &lt;x&gt;65&lt;/x&gt;
         ///    &lt;y&gt;26&lt;/y&gt;
         ///    &lt;hp&gt;1&lt;/hp&gt;
-        ///    &lt;colour&gt;Maroon&lt;/colour&gt;
         ///  &lt;/brick&gt;
         ///  &lt;brick&gt;
         ///    &lt;x&gt;175&lt;/x&gt;
         ///    &lt;y&gt;26&lt;/y&gt;
         ///    &lt;hp&gt;1&lt;/hp&gt;
-        ///    &lt;colour&gt;Maroon&lt;/colour&gt;
         ///  &lt;/brick&gt;
         ///  &lt;brick&gt;
         ///    &lt;x&gt;285&lt;/x&gt;
         ///    &lt;y&gt;26&lt;/y&gt;
         ///    &lt;hp&gt;1&lt;/hp&gt;
-        ///    &lt;colour&gt;Maroon&lt;/colour&gt;
         ///  &lt;/brick&gt;
         ///  &lt;brick&gt;
         ///    &lt;x&gt;395&lt;/x&gt;
         ///    &lt;y&gt;26&lt;/y&gt;
         ///    &lt;hp&gt;1&lt;/hp&gt;
-        ///    &lt;colour&gt;Maroon&lt;/colour&gt;
         ///  &lt;/brick&gt;
         ///  &lt;brick&gt;
         ///    &lt;x&gt;505&lt;/x&gt;
         ///    &lt;y&gt;26&lt;/y&gt;
         ///    &lt;hp&gt;1&lt;/hp&gt;
-        ///    &lt;colo [rest of string was truncated]&quot;;.
+        ///  &lt;/brick&gt;
+        ///  &lt;brick&gt;
+        ///    &lt;x&gt;615&lt;/x&gt;
+        ///    &lt;y&gt;26&lt;/y&gt;
+        ///    &lt;hp&gt;1&lt;/hp&gt;
+        ///  &lt;/brick&gt;
+        ///  &lt;brick&gt;
+        ///    &lt;x&gt;725&lt;/x&gt;
+        ///    &lt;y&gt;26&lt;/y&gt;
+        ///  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Level1 {
             get {
@@ -237,26 +224,115 @@ namespace BrickBreaker.Properties {
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;level&gt;
         ///  &lt;brick&gt;
-        ///    &lt;x&gt;00&lt;/x&gt;
-        ///    &lt;y&gt;00&lt;/y&gt;
-        ///    &lt;hp&gt;300&lt;/hp&gt;
-        ///    &lt;colour&gt;Black&lt;/colour&gt;
+        ///    &lt;x&gt;380&lt;/x&gt;
+        ///    &lt;y&gt;9&lt;/y&gt;
+        ///    &lt;hp&gt;2&lt;/hp&gt;
+        ///    &lt;colour&gt;Red&lt;/colour&gt;
         ///  &lt;/brick&gt;
-        ///&lt;/level&gt;.
+        ///  &lt;brick&gt;
+        ///    &lt;x&gt;437&lt;/x&gt;
+        ///    &lt;y&gt;9&lt;/y&gt;
+        ///    &lt;hp&gt;2&lt;/hp&gt;
+        ///    &lt;colour&gt;Red&lt;/colour&gt;
+        ///  &lt;/brick&gt;
+        ///  &lt;brick&gt;
+        ///    &lt;x&gt;326&lt;/x&gt;
+        ///    &lt;y&gt;25&lt;/y&gt;
+        ///    &lt;hp&gt;2&lt;/hp&gt;
+        ///    &lt;colour&gt;Red&lt;/colour&gt;
+        ///  &lt;/brick&gt;
+        ///  &lt;brick&gt;
+        ///    &lt;x&gt;270&lt;/x&gt;
+        ///    &lt;y&gt;36&lt;/y&gt;
+        ///    &lt;hp&gt;2&lt;/hp&gt;
+        ///    &lt;colour&gt;Red&lt;/colour&gt;
+        ///  &lt;/brick&gt;
+        ///  &lt;brick&gt;
+        ///    &lt;x&gt;214&lt;/x&gt;
+        ///    &lt;y&gt;55&lt;/y&gt;
+        ///    &lt;hp&gt;2&lt;/hp&gt;
+        ///    &lt;colour&gt;Red&lt;/colou [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string level4
-        {
-            get
-            {
+        internal static string level4 {
+            get {
                 return ResourceManager.GetString("level4", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;level&gt;
+        ///  &lt;brick&gt;
+        ///    &lt;x&gt;12&lt;/x&gt;
+        ///    &lt;y&gt;9&lt;/y&gt;
+        ///    &lt;hp&gt;1&lt;/hp&gt;
+        ///    &lt;colour&gt;Maroon&lt;/colour&gt;
+        ///  &lt;/brick&gt;
+        ///  &lt;brick&gt;
+        ///    &lt;x&gt;77&lt;/x&gt;
+        ///    &lt;y&gt;9&lt;/y&gt;
+        ///    &lt;hp&gt;1&lt;/hp&gt;
+        ///    &lt;colour&gt;Maroon&lt;/colour&gt;
+        ///  &lt;/brick&gt;
+        ///  &lt;brick&gt;
+        ///    &lt;x&gt;724&lt;/x&gt;
+        ///    &lt;y&gt;9&lt;/y&gt;
+        ///    &lt;hp&gt;1&lt;/hp&gt;
+        ///    &lt;colour&gt;Maroon&lt;/colour&gt;
+        ///  &lt;/brick&gt;
+        ///  &lt;brick&gt;
+        ///    &lt;x&gt;792&lt;/x&gt;
+        ///    &lt;y&gt;9&lt;/y&gt;
+        ///    &lt;hp&gt;1&lt;/hp&gt;
+        ///    &lt;colour&gt;Maroon&lt;/colour&gt;
+        ///  &lt;/brick&gt;
+        ///  &lt;brick&gt;
+        ///    &lt;x&gt;12&lt;/x&gt;
+        ///    &lt;y&gt;48&lt;/y&gt;
+        ///    &lt;hp&gt;1&lt;/hp&gt;
+        ///    &lt;colour&gt;Mar [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string level5 {
+            get {
+                return ResourceManager.GetString("level5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream paddleSound {
+            get {
+                return ResourceManager.GetStream("paddleSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; 
+        ///.
+        /// </summary>
+        internal static string ScoreXML {
+            get {
+                return ResourceManager.GetString("ScoreXML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap title_screen_brick_breaker {
             get {
                 object obj = ResourceManager.GetObject("title_screen_brick_breaker", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream wallSound {
+            get {
+                return ResourceManager.GetStream("wallSound", resourceCulture);
             }
         }
     }
