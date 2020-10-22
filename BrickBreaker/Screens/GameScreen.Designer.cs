@@ -61,10 +61,10 @@
             this.scoreLabel.BackColor = System.Drawing.Color.Transparent;
             this.scoreLabel.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreLabel.ForeColor = System.Drawing.Color.White;
-            this.scoreLabel.Location = new System.Drawing.Point(916, 639);
+            this.scoreLabel.Location = new System.Drawing.Point(809, 639);
             this.scoreLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.scoreLabel.Name = "scoreLabel";
-            this.scoreLabel.Size = new System.Drawing.Size(148, 39);
+            this.scoreLabel.Size = new System.Drawing.Size(255, 39);
             this.scoreLabel.TabIndex = 1;
             this.scoreLabel.Text = "label1";
             this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.BottomRight;
