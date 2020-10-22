@@ -24,6 +24,9 @@ namespace BrickBreaker
     {
         #region global values
 
+
+        //New List for new happiness
+        List<Ball> powerupBall = new List<Ball>();
         //player1 button control keys - DO NOT CHANGE
         Boolean leftArrowDown, rightArrowDown, pKeyDown, spaceDown, gamePaused;
 
@@ -37,6 +40,10 @@ namespace BrickBreaker
         Paddle paddle;
         Ball ball;
 
+        //Powerball objct
+
+        
+
         // list of all blocks for current level
         List<Block> blocks = new List<Block>();
         List<Powerups> Powerup = new List<Powerups>();
@@ -45,6 +52,7 @@ namespace BrickBreaker
         SolidBrush paddleBrush = new SolidBrush(Color.White);
         SolidBrush ballBrush = new SolidBrush(Color.White);
         SolidBrush blockBrush = new SolidBrush(Color.Red);
+        SolidBrush powerballBrush = new SolidBrush(Color.White);
         
 
         #endregion
@@ -62,6 +70,12 @@ namespace BrickBreaker
             string type = "";
             Color c = Color.White;
 
+            int ballX = this.Width / 2 ;
+            int ballY = this.Height - paddle.height - 80;
+            int xSpeed = 6;
+            int ySpeed = 6;
+            int ballSize = 20;
+
             Random powerGen = new Random();
 
             foreach (Block b in blocks)
@@ -73,17 +87,15 @@ namespace BrickBreaker
 
                     if (powerupChance == 1)
                     {
-
-
-
                         if (powerupType == 1) // add 300 points
                         {
                             type = "points";
-                            
+                            c = Color.Blue;
                         }
                         else if (powerupType == 2) // add another ball
                         {
                             type = "ball";
+                            c = Color.Yellow;
                         }
                         else if (powerupType == 3) // add extra life
                         {
@@ -121,12 +133,15 @@ namespace BrickBreaker
                     {
                         if (d.type == "points")
                         {
-                        
+                        score += 300;
                         }
                         else if (d.type == "ball")
                         {
-
-                        }
+                         Rectangle ballRec = new Rectangle(ball.x, ball.y, ball.size, ball.size);
+                        
+                        Ball powerball = new Ball(this.Width/2 - 10, this.Height/2 + 80, 6, 6, ballSize);
+                        powerupBall.Add(powerball);
+                    }
                         else if (d.type == "life")
                         {
                             lives++;
@@ -179,6 +194,8 @@ namespace BrickBreaker
             int ySpeed = 0;
             int ballSize = 20;
             ball = new Ball(ballX, ballY, xSpeed, ySpeed, ballSize);
+           
+
             #endregion
 
             pauseLabel.Visible = false;
@@ -318,6 +335,14 @@ namespace BrickBreaker
 
             #region Move ball
             ball.Move();
+
+            if (powerupBall.Count() >= 1) 
+            {
+                foreach(Ball p in powerupBall)
+                {
+                    p.Move();
+                }
+            }
             #endregion
 
 
@@ -489,6 +514,14 @@ namespace BrickBreaker
 
             #region Draws ball
             e.Graphics.FillRectangle(ballBrush, ball.x, ball.y, ball.size, ball.size);
+            // draws powerupball
+            if (powerupBall.Count() >= 1)
+            {
+                foreach (Ball p in powerupBall)
+                {
+                    e.Graphics.FillRectangle(powerballBrush, p.x, p.y, p.size, p.size);
+                }
+            }
 
             #endregion
 
