@@ -8,19 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-
+using System.Threading;
 namespace BrickBreaker
 {
     public partial class GameOverScreen : UserControl
     {
         #region global values
-        Boolean UpArrowDown, DownArrowDown, RightArrowDown, LeftArrowDown;
-        int upCounter = 0;
-        int rightCounter = 0;
+        //Boolean UpArrowDown, DownArrowDown, RightArrowDown, LeftArrowDown;
+        int index1, index2, index3 = 0;
+
+
 
         public static string nameKeeper;
 
         List<Scores> name = new List<Scores>();
+        string[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
         #endregion
 
         public GameOverScreen()
@@ -28,51 +30,6 @@ namespace BrickBreaker
             InitializeComponent();
         }
 
-        private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            //player 1 button presses
-            switch (e.KeyCode)
-            {
-                case Keys.Up:
-                    UpArrowDown = true;
-                    break;
-                case Keys.Down:
-                    DownArrowDown = true;
-                    break;
-                case Keys.Right:
-                    RightArrowDown = true;
-                    break;
-                case Keys.Left:
-                    LeftArrowDown = true;
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        private void GameScreen_KeyUp(object sender, KeyEventArgs e)
-        {
-            //player 1 button releases
-            switch (e.KeyCode)
-            {
-                case Keys.Up:
-                    UpArrowDown = false;
-                    break;
-                case Keys.Down:
-                    DownArrowDown = false;
-                    break;
-                case Keys.Right:
-                    RightArrowDown = false;
-                    break;
-                case Keys.Left:
-                    LeftArrowDown = false;
-                    break;
-
-                default:
-                    break;
-            }
-        }
 
 
         private void playAgainButton_Click(object sender, EventArgs e)
@@ -98,9 +55,11 @@ namespace BrickBreaker
 
             Application.Exit();
         }
+
+        //resets XML sometimes!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public void storeScore()
         {
-            
+
             string playerName = letter1Output.Text + letter2Output.Text + letter3Output.Text;
             int score = GameScreen.score;
 
@@ -134,371 +93,276 @@ namespace BrickBreaker
             exitButton.BackColor = Color.LightGray;
         }
 
+        private void letter1Output_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+
+                    // UpArrowDown = true;
+                   
+                        if (index1 < 25)
+                        {
+                            index1++;
+                        }
+                        else
+                        {
+                            index1 = 0;
+                        }
+                        letter1Output.Text = alphabet[index1];
+                        Refresh();
+
+                  
+
+                    break;
+                case Keys.Down:
+                    //DownArrowDown = true;
+
+                  
+                        if (index1 > 0)
+                        {
+                            index1--;
+                        }
+                        else
+                        {
+                            index1 = 25;
+                        }
+                        letter1Output.Text = alphabet[index1];
+                        Refresh();
+               
+
+                    break;
+                case Keys.Right:
+                    //RightArrowDown = true;
+                    letter2Output.Enabled = true;
+                    letter2Output.Focus();
+                    letter1Output.Enabled = false;
+
+                    letter1Output.ForeColor = Color.Black;
+                    letter2Output.ForeColor = Color.Firebrick;
+                    break;
+                case Keys.Left:
+                    //LeftArrowDown = true;
+                    exitButton.Focus();
+                   
+
+                    exitButton.Enabled = true;
+                    exitButton.Focus();
+                    letter1Output.Enabled = false;
+
+                    letter1Output.ForeColor = Color.Black;
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void letter2Output_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+
+                    // UpArrowDown = true;
+                   
+                        if (index2 < 25)
+                        {
+                            index2++;
+                        }
+                        else
+                        {
+                            index2 = 0;
+                        }
+                        letter2Output.Text = alphabet[index2];
+                        Refresh();
+
+                    break;
+                case Keys.Down:
+                    //DownArrowDown = true;
+
+                   
+                        if (index2 > 0)
+                        {
+                            index2--;
+                        }
+                        else
+                        {
+                            index2 = 25;
+                        }
+                        letter2Output.Text = alphabet[index2];
+                        Refresh();
+                    
+
+                    break;
+                case Keys.Right:
+                    //RightArrowDown = true;
+
+                    letter3Output.Enabled = true;
+                    letter3Output.Focus();
+                    letter2Output.Enabled = false;
+
+                    letter2Output.ForeColor = Color.Black;
+                    letter3Output.ForeColor = Color.Firebrick;
+                    break;
+                case Keys.Left:
+                    //LeftArrowDown = true;
+                   
+                    letter1Output.Enabled = true;
+                    letter1Output.Focus();
+                    letter2Output.Enabled = false;
+
+                    letter1Output.ForeColor = Color.Firebrick;
+                    letter2Output.ForeColor = Color.Black;
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void letter3Output_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+
+                    // UpArrowDown = true;
+                
+                        if (index3 < 25)
+                        {
+                            index3++;
+                        }
+                        else
+                        {
+                            index3 = 0;
+                        }
+                        letter3Output.Text = alphabet[index3];
+                        Refresh();
+
+               
+
+                    break;
+                case Keys.Down:
+                    //DownArrowDown = true;
+
+                 
+                        if (index3 > 0)
+                        {
+                            index3--;
+                        }
+                        else
+                        {
+                            index3 = 25;
+                        }
+                        letter3Output.Text = alphabet[index3];
+                        Refresh();
+       
+
+                    break;
+                case Keys.Right:
+                    //RightArrowDown = true;
+                    
+                    playAgainButton.Enabled = true;
+                    playAgainButton.Focus();
+                    letter3Output.Enabled = false;
+
+                    letter3Output.ForeColor = Color.Black;
+                   
+                    break;
+                case Keys.Left:
+                    //LeftArrowDown = true;
+                   
+                    letter2Output.Enabled = true;
+                    letter2Output.Focus();
+                    letter3Output.Enabled = false;
+
+                    letter2Output.ForeColor = Color.Firebrick;
+                    letter3Output.ForeColor = Color.Black;
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void exitButton_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Right:
+                    //RightArrowDown = true;
+
+                    playAgainButton.Enabled = true;
+                    playAgainButton.Focus();
+                    exitButton.Enabled = false;
+
+                    
+
+                    break;
+                case Keys.Left:
+                    //LeftArrowDown = true;
+
+                    letter1Output.Enabled = true;
+                    letter1Output.Focus();
+                    exitButton.Enabled = false;
+
+                    letter1Output.ForeColor = Color.Firebrick;
+                    exitButton.BackColor = Color.Silver;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void playAgainButton_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Right:
+                    //RightArrowDown = true;
+
+                    letter3Output.Enabled = true;
+                    letter3Output.Focus();
+                    playAgainButton.Enabled = false;
+
+                    letter3Output.ForeColor = Color.Firebrick;
+                    break;
+                case Keys.Left:
+                    //LeftArrowDown = true;
+
+                    exitButton.Enabled = true;
+                    exitButton.Focus();
+                    playAgainButton.Enabled = false;
+                    playAgainButton.BackColor = Color.Silver;
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
         private void exitButton_Enter(object sender, EventArgs e)
         {
             playAgainButton.BackColor = Color.LightGray;
             exitButton.BackColor = Color.LightSalmon;
         }
 
+
         private void GameOverScreen_Load(object sender, EventArgs e)
         {
             //change to use lists for letters!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            letter1Output.Text = "A";
-            letter2Output.Text = "A";
-            letter3Output.Text = "A";
+            letter1Output.Text = alphabet[0];
+            letter2Output.Text = alphabet[0];
+            letter3Output.Text = alphabet[0];
 
-            #region counter setup
-            if (RightArrowDown == true)
-            {
-                upCounter = 0;
-                rightCounter++;
-            }
-            else if (UpArrowDown == true)
-            {
-                upCounter++;
-            }
-
-            if (rightCounter == 0)
-            {
-                letter3Output.ForeColor = Color.Black;
-                letter1Output.ForeColor = Color.Red;
-            }
-            else if (rightCounter == 1)
-            {
-                letter1Output.ForeColor = Color.Black;
-                letter2Output.ForeColor = Color.Red;
-            }
-            else if (rightCounter == 2)
-            {
-                letter2Output.ForeColor = Color.Black;
-                letter3Output.ForeColor = Color.Red;
-            }
-            #endregion
-
-            #region first letter setup
-            if (upCounter == 0 && rightCounter == 0)
-            {
-                letter1Output.Text = "A";
-            }
-            else if (upCounter == 1 && rightCounter == 0)
-            {
-                letter1Output.Text = "B";
-            }
-            else if (upCounter == 2 && rightCounter == 0)
-            {
-                letter1Output.Text = "C";
-            }
-            else if (upCounter == 3 && rightCounter == 0)
-            {
-                letter1Output.Text = "D";
-            }
-            else if (upCounter == 4 && rightCounter == 0)
-            {
-                letter1Output.Text = "E";
-            }
-            else if (upCounter == 5 && rightCounter == 0)
-            {
-                letter1Output.Text = "F";
-            }
-            else if (upCounter == 6 && rightCounter == 0)
-            {
-                letter1Output.Text = "G";
-            }
-            else if (upCounter == 7 && rightCounter == 0)
-            {
-                letter1Output.Text = "H";
-            }
-            else if (upCounter == 8 && rightCounter == 0)
-            {
-                letter1Output.Text = "I";
-            }
-            else if (upCounter == 9 && rightCounter == 0)
-            {
-                letter1Output.Text = "J";
-            }
-            else if (upCounter == 10 && rightCounter == 0)
-            {
-                letter1Output.Text = "K";
-            }
-            else if (upCounter == 11 && rightCounter == 0)
-            {
-                letter1Output.Text = "L";
-            }
-            else if (upCounter == 12 && rightCounter == 0)
-            {
-                letter1Output.Text = "M";
-            }
-            else if (upCounter == 13 && rightCounter == 0)
-            {
-                letter1Output.Text = "N";
-            }
-            else if (upCounter == 14 && rightCounter == 0)
-            {
-                letter1Output.Text = "O";
-            }
-            else if (upCounter == 15 && rightCounter == 0)
-            {
-                letter1Output.Text = "P";
-            }
-            else if (upCounter == 16 && rightCounter == 0)
-            {
-                letter1Output.Text = "Q";
-            }
-            else if (upCounter == 17 && rightCounter == 0)
-            {
-                letter1Output.Text = "R";
-            }
-            else if (upCounter == 18 && rightCounter == 0)
-            {
-                letter1Output.Text = "S";
-            }
-            else if (upCounter == 19 && rightCounter == 0)
-            {
-                letter1Output.Text = "T";
-            }
-            else if (upCounter == 20 && rightCounter == 0)
-            {
-                letter1Output.Text = "U";
-            }
-            else if (upCounter == 21 && rightCounter == 0)
-            {
-                letter1Output.Text = "V";
-            }
-            else if (upCounter == 22 && rightCounter == 0)
-            {
-                letter1Output.Text = "W";
-            }
-            else if (upCounter == 23 && rightCounter == 0)
-            {
-                letter1Output.Text = "X";
-            }
-            else if (upCounter == 24 && rightCounter == 0)
-            {
-                letter1Output.Text = "Y";
-            }
-            else if (upCounter == 25 && rightCounter == 0)
-            {
-                letter1Output.Text = "Z";
-                upCounter = 0;
-            }
-            #endregion
-
-            #region second letter setup
-            if (upCounter == 0 && rightCounter == 1)
-            {
-                letter1Output.Text = "A";
-            }
-            else if (upCounter == 1 && rightCounter == 1)
-            {
-                letter1Output.Text = "B";
-            }
-            else if (upCounter == 2 && rightCounter == 1)
-            {
-                letter1Output.Text = "C";
-            }
-            else if (upCounter == 3 && rightCounter == 1)
-            {
-                letter1Output.Text = "D";
-            }
-            else if (upCounter == 4 && rightCounter == 1)
-            {
-                letter1Output.Text = "E";
-            }
-            else if (upCounter == 5 && rightCounter == 1)
-            {
-                letter1Output.Text = "F";
-            }
-            else if (upCounter == 6 && rightCounter == 1)
-            {
-                letter1Output.Text = "G";
-            }
-            else if (upCounter == 7 && rightCounter == 1)
-            {
-                letter1Output.Text = "H";
-            }
-            else if (upCounter == 8 && rightCounter == 1)
-            {
-                letter1Output.Text = "I";
-            }
-            else if (upCounter == 9 && rightCounter == 1)
-            {
-                letter1Output.Text = "J";
-            }
-            else if (upCounter == 10 && rightCounter == 1)
-            {
-                letter1Output.Text = "K";
-            }
-            else if (upCounter == 11 && rightCounter == 1)
-            {
-                letter1Output.Text = "L";
-            }
-            else if (upCounter == 12 && rightCounter == 1)
-            {
-                letter1Output.Text = "M";
-            }
-            else if (upCounter == 13 && rightCounter == 1)
-            {
-                letter1Output.Text = "N";
-            }
-            else if (upCounter == 14 && rightCounter == 1)
-            {
-                letter1Output.Text = "O";
-            }
-            else if (upCounter == 15 && rightCounter == 1)
-            {
-                letter1Output.Text = "P";
-            }
-            else if (upCounter == 16 && rightCounter == 1)
-            {
-                letter1Output.Text = "Q";
-            }
-            else if (upCounter == 17 && rightCounter == 1)
-            {
-                letter1Output.Text = "R";
-            }
-            else if (upCounter == 18 && rightCounter == 1)
-            {
-                letter1Output.Text = "S";
-            }
-            else if (upCounter == 19 && rightCounter == 1)
-            {
-                letter1Output.Text = "T";
-            }
-            else if (upCounter == 20 && rightCounter == 1)
-            {
-                letter1Output.Text = "U";
-            }
-            else if (upCounter == 21 && rightCounter == 1)
-            {
-                letter1Output.Text = "V";
-            }
-            else if (upCounter == 22 && rightCounter == 1)
-            {
-                letter1Output.Text = "W";
-            }
-            else if (upCounter == 23 && rightCounter == 1)
-            {
-                letter1Output.Text = "X";
-            }
-            else if (upCounter == 24 && rightCounter == 1)
-            {
-                letter1Output.Text = "Y";
-            }
-            else if (upCounter == 25 && rightCounter == 1)
-            {
-                letter1Output.Text = "Z";
-                upCounter = 0;
-            }
-            #endregion
-
-            #region third letter setup
-            if (upCounter == 0 && rightCounter == 2)
-            {
-                letter1Output.Text = "A";
-            }
-            else if (upCounter == 1 && rightCounter == 2)
-            {
-                letter1Output.Text = "B";
-            }
-            else if (upCounter == 2 && rightCounter == 2)
-            {
-                letter1Output.Text = "C";
-            }
-            else if (upCounter == 3 && rightCounter == 2)
-            {
-                letter1Output.Text = "D";
-            }
-            else if (upCounter == 4 && rightCounter == 2)
-            {
-                letter1Output.Text = "E";
-            }
-            else if (upCounter == 5 && rightCounter == 2)
-            {
-                letter1Output.Text = "F";
-            }
-            else if (upCounter == 6 && rightCounter == 2)
-            {
-                letter1Output.Text = "G";
-            }
-            else if (upCounter == 7 && rightCounter == 2)
-            {
-                letter1Output.Text = "H";
-            }
-            else if (upCounter == 8 && rightCounter == 2)
-            {
-                letter1Output.Text = "I";
-            }
-            else if (upCounter == 9 && rightCounter == 2)
-            {
-                letter1Output.Text = "J";
-            }
-            else if (upCounter == 10 && rightCounter == 2)
-            {
-                letter1Output.Text = "K";
-            }
-            else if (upCounter == 11 && rightCounter == 2)
-            {
-                letter1Output.Text = "L";
-            }
-            else if (upCounter == 12 && rightCounter == 2)
-            {
-                letter1Output.Text = "M";
-            }
-            else if (upCounter == 13 && rightCounter == 2)
-            {
-                letter1Output.Text = "N";
-            }
-            else if (upCounter == 14 && rightCounter == 2)
-            {
-                letter1Output.Text = "O";
-            }
-            else if (upCounter == 15 && rightCounter == 2)
-            {
-                letter1Output.Text = "P";
-            }
-            else if (upCounter == 16 && rightCounter == 2)
-            {
-                letter1Output.Text = "Q";
-            }
-            else if (upCounter == 17 && rightCounter == 2)
-            {
-                letter1Output.Text = "R";
-            }
-            else if (upCounter == 18 && rightCounter == 2)
-            {
-                letter1Output.Text = "S";
-            }
-            else if (upCounter == 19 && rightCounter == 2)
-            {
-                letter1Output.Text = "T";
-            }
-            else if (upCounter == 20 && rightCounter == 2)
-            {
-                letter1Output.Text = "U";
-            }
-            else if (upCounter == 21 && rightCounter == 2)
-            {
-                letter1Output.Text = "V";
-            }
-            else if (upCounter == 22 && rightCounter == 2)
-            {
-                letter1Output.Text = "W";
-            }
-            else if (upCounter == 23 && rightCounter == 2)
-            {
-                letter1Output.Text = "X";
-            }
-            else if (upCounter == 24 && rightCounter == 2)
-            {
-                letter1Output.Text = "Y";
-            }
-            else if (upCounter == 25 && rightCounter == 2)
-            {
-                letter1Output.Text = "Z";
-                upCounter = 0;
-            }
-            #endregion
-
+            letter1Output.Focus();
+            letter1Output.ForeColor = Color.Firebrick;
         }
     }
 }
