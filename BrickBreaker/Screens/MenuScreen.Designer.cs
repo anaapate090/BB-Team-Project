@@ -81,6 +81,7 @@
             this.highScoreButton.Text = "High Scores";
             this.highScoreButton.UseVisualStyleBackColor = false;
             this.highScoreButton.Click += new System.EventHandler(this.highScoreButton_Click);
+            this.highScoreButton.Enter += new System.EventHandler(this.highScoreButton_Enter);
             // 
             // instructionsButton
             // 
@@ -95,6 +96,8 @@
             this.instructionsButton.TabIndex = 6;
             this.instructionsButton.Text = "Instructions";
             this.instructionsButton.UseVisualStyleBackColor = false;
+            this.instructionsButton.Click += new System.EventHandler(this.instructionsButton_Click);
+            this.instructionsButton.Enter += new System.EventHandler(this.instructionsButton_Enter);
             // 
             // MenuScreen
             // 

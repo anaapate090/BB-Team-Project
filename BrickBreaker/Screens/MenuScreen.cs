@@ -38,12 +38,16 @@ namespace BrickBreaker
         {
             playButton.BackColor = Color.LightSalmon;
             exitButton.BackColor = Color.LightGray;
+            highScoreButton.BackColor = Color.LightGray;
+            instructionsButton.BackColor = Color.LightGray;
         }
 
         private void exitButton_Enter(object sender, EventArgs e)
         {
             playButton.BackColor = Color.LightGray;
             exitButton.BackColor = Color.LightSalmon;
+            highScoreButton.BackColor = Color.LightGray;
+            instructionsButton.BackColor = Color.LightGray;
         }
 
         private void highScoreButton_Click(object sender, EventArgs e)
@@ -56,6 +60,33 @@ namespace BrickBreaker
             form.Controls.Remove(this);
 
             hs.Location = new Point((form.Width - hs.Width) / 2, (form.Height - hs.Height) / 2);
+        }
+
+        private void instructionsButton_Click(object sender, EventArgs e)
+        {
+            Form f = this.FindForm();
+            InstructionsScreen ins = new InstructionsScreen();
+
+            f.Controls.Remove(this);
+            f.Controls.Add(ins);
+
+            ins.Focus();
+        }
+
+        private void highScoreButton_Enter(object sender, EventArgs e)
+        {
+            playButton.BackColor = Color.LightGray;
+            exitButton.BackColor = Color.LightGray;
+            highScoreButton.BackColor = Color.LightSalmon;
+            instructionsButton.BackColor = Color.LightGray;
+        }
+
+        private void instructionsButton_Enter(object sender, EventArgs e)
+        {
+            playButton.BackColor = Color.LightGray;
+            exitButton.BackColor = Color.LightGray;
+            highScoreButton.BackColor = Color.LightGray;
+            instructionsButton.BackColor = Color.LightSalmon;
         }
     }
 }
