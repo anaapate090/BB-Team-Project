@@ -48,10 +48,9 @@
             this.livesLabel.BackColor = System.Drawing.Color.Transparent;
             this.livesLabel.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.livesLabel.ForeColor = System.Drawing.Color.White;
-            this.livesLabel.Location = new System.Drawing.Point(4, 639);
-            this.livesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.livesLabel.Location = new System.Drawing.Point(3, 511);
             this.livesLabel.Name = "livesLabel";
-            this.livesLabel.Size = new System.Drawing.Size(148, 39);
+            this.livesLabel.Size = new System.Drawing.Size(118, 31);
             this.livesLabel.TabIndex = 0;
             this.livesLabel.Text = "label1";
             this.livesLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -61,10 +60,9 @@
             this.scoreLabel.BackColor = System.Drawing.Color.Transparent;
             this.scoreLabel.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreLabel.ForeColor = System.Drawing.Color.White;
-            this.scoreLabel.Location = new System.Drawing.Point(809, 639);
-            this.scoreLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.scoreLabel.Location = new System.Drawing.Point(647, 511);
             this.scoreLabel.Name = "scoreLabel";
-            this.scoreLabel.Size = new System.Drawing.Size(255, 39);
+            this.scoreLabel.Size = new System.Drawing.Size(204, 31);
             this.scoreLabel.TabIndex = 1;
             this.scoreLabel.Text = "label1";
             this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -75,10 +73,9 @@
             this.resumeButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.resumeButton.Font = new System.Drawing.Font("Times New Roman", 10F);
             this.resumeButton.ForeColor = System.Drawing.Color.Black;
-            this.resumeButton.Location = new System.Drawing.Point(470, 372);
-            this.resumeButton.Margin = new System.Windows.Forms.Padding(4);
+            this.resumeButton.Location = new System.Drawing.Point(376, 298);
             this.resumeButton.Name = "resumeButton";
-            this.resumeButton.Size = new System.Drawing.Size(126, 48);
+            this.resumeButton.Size = new System.Drawing.Size(101, 38);
             this.resumeButton.TabIndex = 5;
             this.resumeButton.Text = "resume game";
             this.resumeButton.UseVisualStyleBackColor = false;
@@ -90,10 +87,9 @@
             this.menuButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.menuButton.Font = new System.Drawing.Font("Times New Roman", 10F);
             this.menuButton.ForeColor = System.Drawing.Color.Black;
-            this.menuButton.Location = new System.Drawing.Point(470, 318);
-            this.menuButton.Margin = new System.Windows.Forms.Padding(4);
+            this.menuButton.Location = new System.Drawing.Point(376, 254);
             this.menuButton.Name = "menuButton";
-            this.menuButton.Size = new System.Drawing.Size(126, 48);
+            this.menuButton.Size = new System.Drawing.Size(101, 38);
             this.menuButton.TabIndex = 4;
             this.menuButton.Text = "return to menu";
             this.menuButton.UseVisualStyleBackColor = false;
@@ -101,20 +97,22 @@
             // 
             // pauseLabel
             // 
-            this.pauseLabel.BackColor = System.Drawing.Color.DarkGray;
-            this.pauseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
+            this.pauseLabel.BackColor = System.Drawing.Color.Transparent;
+            this.pauseLabel.Font = new System.Drawing.Font("Old English Text MT", 25F);
             this.pauseLabel.ForeColor = System.Drawing.Color.Firebrick;
+
             this.pauseLabel.Location = new System.Drawing.Point(384, 266);
             this.pauseLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.pauseLabel.Name = "pauseLabel";
             this.pauseLabel.Size = new System.Drawing.Size(311, 48);
+
             this.pauseLabel.TabIndex = 3;
             this.pauseLabel.Text = "Game Paused";
             this.pauseLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // GameScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Silver;
             this.BackgroundImage = global::BrickBreaker.Properties.Resources.game_screen_back;
@@ -125,9 +123,9 @@
             this.Controls.Add(this.menuButton);
             this.Controls.Add(this.pauseLabel);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(5);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "GameScreen";
-            this.Size = new System.Drawing.Size(1068, 678);
+            this.Size = new System.Drawing.Size(854, 542);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreen_Paint);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyUp);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);

@@ -211,10 +211,10 @@ namespace BrickBreaker
   
             XmlTextReader reader = new XmlTextReader("Resources/level" + level + ".xml");
 
-
+            if (level < 6)
+            {
                 while (reader.Read())
                 {
-
                     if (reader.NodeType == XmlNodeType.Text)
                     {
                         int x = Convert.ToInt32(reader.ReadString());
@@ -230,8 +230,8 @@ namespace BrickBreaker
                         blocks.Add(newBlock);
                     }
                 }
-
             }
+        }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
@@ -387,6 +387,7 @@ namespace BrickBreaker
                 {
                     powerupBall.RemoveAt(0);
                 }
+
                 paddle.x = this.Width / 2 - paddle.width / 2;
                 #endregion
 
