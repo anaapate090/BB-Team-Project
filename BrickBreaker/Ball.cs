@@ -39,7 +39,6 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(blockRec))
             {
-              
                 brickBounce.Play();
             }
 
@@ -54,34 +53,14 @@ namespace BrickBreaker
             if (ballRec.IntersectsWith(paddleRec))
             {
                 int ranDir;
-                //if (x >= p.x && x <= p.x + p.height / 4)
-                //{
-                //    ySpeed = -1;
-                //}
-                //else if (x >= p.x + p.height / 4 && x <= p.x + p.height / 2)
-                //{
-                //    ySpeed = -2;
-                //}
-                //else if (x >= p.x + p.height / 2 && x <= p.x + p.height * 0.75)
-                //{
-                //    ySpeed = -2;
-                //}
-                //else if (x >= p.x + p.height * 0.75 && x <= p.x + p.height)
-                //{
-                //    ySpeed = -1;
-                //}
-
-                ranDir = rand.Next(0, 4);
+                
+                ranDir = rand.Next(1, 4);
 
                 if (y + size >= p.y && y + size <= p.y + ySpeed + 2)
                 {
-                    if (ranDir == 0)
+                    if (ranDir == 1)
                     {
-                        ySpeed = -2;
-                    }
-                    else if (ranDir == 1)
-                    {
-                        ySpeed = -4;
+                        ySpeed = -5;
                     }
                     else if (ranDir == 2)
                     {
@@ -89,7 +68,7 @@ namespace BrickBreaker
                     }
                     else if (ranDir == 3)
                     {
-                        ySpeed = -8;
+                        ySpeed = -7;
                     }
                 }
                 else if (y >= p.y && y <= p.y + p.height)
