@@ -62,7 +62,7 @@
             this.exitButton.Size = new System.Drawing.Size(259, 95);
             this.exitButton.TabIndex = 250;
             this.exitButton.TabStop = false;
-            this.exitButton.Text = "Exit";
+            this.exitButton.Text = "Menu";
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             this.exitButton.Enter += new System.EventHandler(this.exitButton_Enter);
@@ -102,7 +102,6 @@
             this.letter1Output.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.letter1Output.UseVisualStyleBackColor = false;
             this.letter1Output.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.letter1Output_PreviewKeyDown);
-
             // 
             // letter2Output
             // 
@@ -158,8 +157,10 @@
         private System.Windows.Forms.Label gameOverLabel;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button playAgainButton;
+
         private System.Windows.Forms.Button letter1Output;
         private System.Windows.Forms.Button letter2Output;
         private System.Windows.Forms.Button letter3Output;
+
     }
 }

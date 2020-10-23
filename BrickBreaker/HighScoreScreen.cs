@@ -32,6 +32,7 @@ namespace BrickBreaker
 
         private void HighScoreScreen_Load(object sender, EventArgs e)
         {
+
             nameOutput.ResetText();
             scoreOutput.ResetText();
 
@@ -46,6 +47,7 @@ namespace BrickBreaker
                             nameOutput.Text += sortedList[i].name + "\n";
                             scoreOutput.Text += sortedList[i].score + "\n";
                     }
+
                 }
             }
 
