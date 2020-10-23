@@ -8,14 +8,16 @@ namespace BrickBreaker
 {
     class Scores
     {
-        public string letter1;
-        public string letter2;
-        public string letter3;
-        public Scores(string _letter1, string _letter2, string _letter3)
+        public static List<Scores> scores = new List<Scores>();
+        
+        public string name;
+       
+        public int score;
+        public Scores(string _name, int _score)
+
         {
-            letter1 = _letter1;
-            letter2 = _letter2;
-            letter3 = _letter3;
+            name = _name;
+            score = _score;
         }
     }
 }

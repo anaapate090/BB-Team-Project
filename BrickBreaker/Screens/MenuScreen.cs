@@ -36,15 +36,17 @@ namespace BrickBreaker
 
         private void playButton_Enter(object sender, EventArgs e)
         {
-            playButton.BackColor = Color.LightSalmon;
+
             exitButton.BackColor = Color.LightGray;
             highScoreButton.BackColor = Color.LightGray;
             instructionsButton.BackColor = Color.LightGray;
+
         }
 
         private void exitButton_Enter(object sender, EventArgs e)
         {
-            playButton.BackColor = Color.LightGray;
+            highScoreButton.BackColor = Color.Silver;
+            playButton.BackColor = Color.Silver;
             exitButton.BackColor = Color.LightSalmon;
             highScoreButton.BackColor = Color.LightGray;
             instructionsButton.BackColor = Color.LightGray;
@@ -56,8 +58,8 @@ namespace BrickBreaker
             HighScoreScreen hs = new HighScoreScreen();
             Form form = this.FindForm();
 
-            form.Controls.Add(hs);
             form.Controls.Remove(this);
+            form.Controls.Add(hs);
 
             hs.Location = new Point((form.Width - hs.Width) / 2, (form.Height - hs.Height) / 2);
         }
@@ -73,20 +75,18 @@ namespace BrickBreaker
             ins.Focus();
         }
 
-        private void highScoreButton_Enter(object sender, EventArgs e)
-        {
-            playButton.BackColor = Color.LightGray;
-            exitButton.BackColor = Color.LightGray;
-            highScoreButton.BackColor = Color.LightSalmon;
-            instructionsButton.BackColor = Color.LightGray;
-        }
-
         private void instructionsButton_Enter(object sender, EventArgs e)
         {
             playButton.BackColor = Color.LightGray;
             exitButton.BackColor = Color.LightGray;
             highScoreButton.BackColor = Color.LightGray;
             instructionsButton.BackColor = Color.LightSalmon;
+        private void highScoreButton_Enter(object sender, EventArgs e)
+        {
+            highScoreButton.BackColor = Color.LightSalmon;
+            exitButton.BackColor = Color.LightGray;
+            playButton.BackColor = Color.Silver;
+
         }
     }
 }

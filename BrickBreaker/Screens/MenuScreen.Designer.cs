@@ -42,9 +42,12 @@
             this.playButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SpringGreen;
             this.playButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.playButton.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold);
-            this.playButton.Location = new System.Drawing.Point(99, 326);
+
+            this.playButton.Location = new System.Drawing.Point(412, 312);
+            this.playButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+
             this.playButton.Name = "playButton";
-            this.playButton.Size = new System.Drawing.Size(194, 77);
+            this.playButton.Size = new System.Drawing.Size(242, 96);
             this.playButton.TabIndex = 0;
             this.playButton.Text = "Play Game";
             this.playButton.UseVisualStyleBackColor = false;
@@ -58,10 +61,13 @@
             this.exitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSalmon;
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.exitButton.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold);
-            this.exitButton.Location = new System.Drawing.Point(561, 326);
+
+            this.exitButton.Location = new System.Drawing.Point(412, 546);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(194, 77);
-            this.exitButton.TabIndex = 1;
+            this.exitButton.Size = new System.Drawing.Size(242, 96);
+            this.exitButton.TabIndex = 2;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
@@ -74,14 +80,18 @@
             this.highScoreButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSalmon;
             this.highScoreButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.highScoreButton.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold);
-            this.highScoreButton.Location = new System.Drawing.Point(332, 326);
+
+            this.highScoreButton.Location = new System.Drawing.Point(412, 428);
+            this.highScoreButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+
             this.highScoreButton.Name = "highScoreButton";
-            this.highScoreButton.Size = new System.Drawing.Size(194, 77);
-            this.highScoreButton.TabIndex = 2;
+            this.highScoreButton.Size = new System.Drawing.Size(242, 96);
+            this.highScoreButton.TabIndex = 1;
             this.highScoreButton.Text = "High Scores";
             this.highScoreButton.UseVisualStyleBackColor = false;
             this.highScoreButton.Click += new System.EventHandler(this.highScoreButton_Click);
             this.highScoreButton.Enter += new System.EventHandler(this.highScoreButton_Enter);
+
             // 
             // instructionsButton
             // 
@@ -98,10 +108,11 @@
             this.instructionsButton.UseVisualStyleBackColor = false;
             this.instructionsButton.Click += new System.EventHandler(this.instructionsButton_Click);
             this.instructionsButton.Enter += new System.EventHandler(this.instructionsButton_Enter);
+
             // 
             // MenuScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Silver;
             this.BackgroundImage = global::BrickBreaker.Properties.Resources.title_screen_brick_breaker;
@@ -112,8 +123,9 @@
             this.Controls.Add(this.playButton);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.Black;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MenuScreen";
-            this.Size = new System.Drawing.Size(854, 542);
+            this.Size = new System.Drawing.Size(1068, 678);
             this.ResumeLayout(false);
 
         }
