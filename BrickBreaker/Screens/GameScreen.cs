@@ -31,7 +31,7 @@ namespace BrickBreaker
         Boolean leftArrowDown, rightArrowDown, escKeyDown, spaceDown, gamePaused;
 
         // Game values
-
+        int prevX, prevY;
         int lives = 3;
         public static int score = 0;
         int level = 1;
@@ -419,12 +419,16 @@ namespace BrickBreaker
                     {
                         if (ball.x <= b.x + 50 && ball.x >= b.x)
                         {
-                            ball.xSpeed = ball.xSpeed * -1;
+                            ball.ySpeed = ball.ySpeed * -1;
+                            ball.y = prevY;
+                            ball.x = prevX;
                         }
                         else if (ball.y >= b.y - ball.size && ball.y <= b.y + 25)
                         {
 
-                            ball.ySpeed = ball.ySpeed * -1;
+                            ball.xSpeed = ball.xSpeed * -1;
+                            ball.y = prevY;
+                            ball.x = prevX;
                         }
 
                         SoundPlayer brickPlayer = new SoundPlayer(Properties.Resources.breakSound);
@@ -462,6 +466,9 @@ namespace BrickBreaker
 
             pauseScreenEnabled();
             counter++;
+            prevX = ball.x;
+            prevY = ball.y;
+
             //redraw the screen
             Refresh();
         }
