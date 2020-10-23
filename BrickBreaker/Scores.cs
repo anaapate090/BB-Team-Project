@@ -8,6 +8,8 @@ namespace BrickBreaker
 {
     class Scores
     {
+        public static List<Scores> scores = new List<Scores>();
+        
         public string name;
        
         public int score;

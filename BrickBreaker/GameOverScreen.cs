@@ -21,7 +21,7 @@ namespace BrickBreaker
 
         public static string nameKeeper;
 
-        List<Scores> name = new List<Scores>();
+        
         string[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
         #endregion
 
@@ -56,22 +56,21 @@ namespace BrickBreaker
             Application.Exit();
         }
 
-        //resets XML sometimes!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!(need to put all highscores(or top ten) in a global list and re-add each time)
         public void storeScore()
         {
-
+            //Need to add existing scores to the list in scores to keep them from being deleted on write(complete this action on reading the xml)
             string playerName = letter1Output.Text + letter2Output.Text + letter3Output.Text;
             int score = GameScreen.score;
 
             Scores newScores = new Scores(playerName, score);
 
-            name.Add(newScores);
+            Scores.scores.Add(newScores);
 
             XmlWriter writer = XmlWriter.Create("Resources/ScoreXML.xml", null);
 
             writer.WriteStartElement("HighScores");
 
-            foreach (Scores s in name)
+            foreach (Scores s in Scores.scores)
             {
                 writer.WriteStartElement("Player");
 
