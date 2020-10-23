@@ -81,6 +81,7 @@ namespace BrickBreaker
             exitButton.BackColor = Color.LightGray;
             highScoreButton.BackColor = Color.LightGray;
             instructionsButton.BackColor = Color.LightSalmon;
+        }
         private void highScoreButton_Enter(object sender, EventArgs e)
         {
             highScoreButton.BackColor = Color.LightSalmon;

@@ -52,8 +52,17 @@ namespace BrickBreaker
         private void exitButton_Click(object sender, EventArgs e)
         {
             storeScore();
+            #region change screen
+            Form f = this.FindForm();
+            f.Controls.Remove(this);
 
-            Application.Exit();
+            MenuScreen ms = new MenuScreen();
+            f.Controls.Add(ms);
+
+            ms.Location = new Point((f.Width - ms.Width) / 2, (f.Height - ms.Height) / 2);
+
+            ms.Focus();
+            #endregion
         }
 
         public void storeScore()
@@ -360,14 +369,7 @@ namespace BrickBreaker
         {
             playAgainButton.BackColor = Color.LightGray;
             exitButton.BackColor = Color.LightGray;
-            menuButton.BackColor = Color.LightSalmon;
-        }
-
-        private void playAgainButton_Enter(object sender, EventArgs e)
-        {
-            playAgainButton.BackColor = Color.LightSalmon;
-            exitButton.BackColor = Color.LightGray;
-            menuButton.BackColor = Color.LightGray;
+           // menuButton.BackColor = Color.LightSalmon;
         }
 
 
@@ -375,12 +377,22 @@ namespace BrickBreaker
         {
             playAgainButton.BackColor = Color.LightGray;
             exitButton.BackColor = Color.LightSalmon;
-            menuButton.BackColor = Color.LightGray;
+           // menuButton.BackColor = Color.LightGray;
         }
 
         private void GameOverScreen_Load(object sender, EventArgs e)
         {
-            //change to use lists for letters!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if(GameScreen.win == true)
+            {
+                gameOverLabel.Text = "You Win!";
+                Refresh();
+            }
+            else
+            {
+                gameOverLabel.Text = "Game Over";
+                Refresh();
+            }
+
             letter1Output.Text = alphabet[0];
             letter2Output.Text = alphabet[0];
             letter3Output.Text = alphabet[0];

@@ -28,18 +28,20 @@ namespace BrickBreaker
         //New List for new happiness
         List<Ball> powerupBall = new List<Ball>();
         //player1 button control keys - DO NOT CHANGE
-        Boolean leftArrowDown, rightArrowDown, escKeyDown, spaceDown, gamePaused;
-
+        Boolean leftArrowDown, rightArrowDown, escKeyDown, spaceDown, gamePaused, paddleMove;
+        public static bool win;
         // Game values
         int prevX, prevY;
         int lives = 3;
         public static int score = 0;
         int level = 1;
         int counter = 1;
-
+        int launchLine;
         // Paddle and Ball objects
         Paddle paddle;
         Ball ball;
+
+        Pen lineBrush = new Pen(Color.White);
 
         // list of all blocks for current level
         List<Block> blocks = new List<Block>();
@@ -53,7 +55,8 @@ namespace BrickBreaker
         public GameScreen()
         {
             InitializeComponent();
-
+            win = false;
+            score = 0;
             OnStart();
 
         }
@@ -238,19 +241,60 @@ namespace BrickBreaker
             //player 1 button presses
             switch (e.KeyCode)
             {
-                case Keys.Left:
-                    leftArrowDown = true;
-                    break;
-                case Keys.Right:
-                    rightArrowDown = true;
-                    break;
                 case Keys.Escape:
                     escKeyDown = true;
                     break;
-                case Keys.Space:
-                    spaceDown = true;
+                case Keys.Left:
+                    
+                    if (paddleMove == false && launchLine > 1)
+                    {
+                        launchLine--;
+                    }
+                    else
+                    {
+                        leftArrowDown = true;
+                    }
                     break;
-
+                case Keys.Right:
+                   
+                    if (paddleMove == false && launchLine < 4)
+                    {
+                        launchLine++;
+                    }
+                    else
+                    {
+                        rightArrowDown = true;
+                    }
+                    break;
+                case Keys.Space:
+                    if (ball.xSpeed == 0 && ball.ySpeed == 0)
+                    {
+                        switch (launchLine)
+                        {
+                            case 1:
+                                ball.xSpeed = -9;
+                                ball.ySpeed = -3;
+                                break;
+                            case 2:
+                                ball.xSpeed = -6;
+                                ball.ySpeed = -6;
+                                break;
+                            case 3:
+                                ball.xSpeed = 6;
+                                ball.ySpeed = -6;
+                                break;
+                            case 4:
+                                ball.xSpeed = 9;
+                                ball.ySpeed = -3;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                  
+                    paddleMove = true;
+                    //TODO: Make ball trajectory match launch line
+                    break;
                 default:
                     break;
             }
@@ -295,31 +339,25 @@ namespace BrickBreaker
 
             // Move the paddle
 
-            if (leftArrowDown && paddle.x > 0)
+            if (leftArrowDown && paddle.x > 0 && paddleMove == true)
             {
                 paddle.Move("left");
                 if (ball.xSpeed == 0 && ball.ySpeed == 0)
                 {
-                    ball.x = paddle.x + paddle.width / 2 - 10;
+                    paddleMove = false;
+                    //ball.x = paddle.x + paddle.width / 2 - 10;
                 }
             }
-            if (rightArrowDown && paddle.x < (this.Width - paddle.width))
+            if (rightArrowDown && paddle.x < (this.Width - paddle.width) && paddleMove == true)
             {
                 paddle.Move("right");
                 if (ball.xSpeed == 0 && ball.ySpeed == 0)
                 {
-                    ball.x = paddle.x + paddle.width / 2 - 10;
+                    paddleMove = false;
+                   // ball.x = paddle.x + paddle.width / 2 - 10;
                 }
             }
 
-            //else if (leftArrowDown && paddle.x > 0)
-            //{
-            //    paddle.Move("left");
-            //}
-            //else if (rightArrowDown && paddle.x < (this.Width - paddle.width))
-            //{
-            //    paddle.Move("right");
-            //}
 
             if(ball.xSpeed == 0 && ball.ySpeed == 00 && spaceDown == true && leftArrowDown == true)
             {
@@ -494,6 +532,7 @@ namespace BrickBreaker
             Refresh();
         }
 
+        
         private void menuButton_Click(object sender, EventArgs e)
         {
             gamePaused = false;
@@ -525,6 +564,7 @@ namespace BrickBreaker
         public void OnEnd()
         {
             gameTimer.Stop();
+            win = false;
 
             Form f = this.FindForm();
             f.Controls.Remove(this);
@@ -540,24 +580,16 @@ namespace BrickBreaker
         {
 
             gameTimer.Stop();
+            win = true;
+            Form f = this.FindForm();
+            f.Controls.Remove(this);
 
-            pauseLabel.Visible = true;
-            pauseLabel.Text = "You Win!";
-            menuButton.Enabled = true;
-            menuButton.Visible = true;
-            resumeButton.Enabled = true;
-            resumeButton.Visible = true;
-            resumeButton.Text = "Quit Game";
+            GameOverScreen gos = new GameOverScreen();
+            f.Controls.Add(gos);
 
-            //gameTimer.Stop();
-            //Form f = this.FindForm();
+            gos.Location = new Point((f.Width - gos.Width) / 2, (f.Height - gos.Height) / 2);
 
-            //f.Controls.Remove(this);
-            //playAgainButton ws = new playAgainButton();
-
-            //ws.Location = new Point((f.Width - ws.Width) / 2, (f.Height - ws.Height) / 2);
-
-            //f.Controls.Add(ws);
+            gos.Focus();
         }
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
@@ -566,6 +598,32 @@ namespace BrickBreaker
             e.Graphics.DrawImage(Properties.Resources.paddleSword, paddle.x, paddle.y, paddle.width, paddle.height);
             #endregion
 
+            if (ball.xSpeed == 0 && ball.ySpeed == 0)
+            {
+                // Makes launch line change depending on launchLine value
+                switch (launchLine)
+                {
+                    case 1:
+                        e.Graphics.DrawLine(lineBrush, paddle.x + (paddle.width / 2), paddle.y,
+                            paddle.x + (paddle.width / 2) - 98, paddle.y - 51);
+                        break;
+                    case 2:
+                        e.Graphics.DrawLine(lineBrush, paddle.x + (paddle.width / 2), paddle.y,
+                            paddle.x + (paddle.width / 2) - 58, paddle.y - 69);
+                        break;
+                    case 3:
+                        e.Graphics.DrawLine(lineBrush, paddle.x + (paddle.width / 2), paddle.y,
+                            paddle.x + (paddle.width / 2) + 58, paddle.y - 69);
+                        break;
+                    case 4:
+                        e.Graphics.DrawLine(lineBrush, paddle.x + (paddle.width / 2), paddle.y,
+                            paddle.x + (paddle.width / 2) + 98, paddle.y - 51);
+                        break;
+                    default:
+                        break;
+                }
+
+            }
 
             // Draws blocks
             foreach (Block b in blocks)
