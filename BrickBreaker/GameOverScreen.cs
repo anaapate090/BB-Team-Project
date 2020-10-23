@@ -143,7 +143,6 @@ namespace BrickBreaker
                 case Keys.Left:
                     //LeftArrowDown = true;
                     exitButton.Focus();
-                   
 
                     exitButton.Enabled = true;
                     exitButton.Focus();

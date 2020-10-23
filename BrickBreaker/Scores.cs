@@ -14,6 +14,7 @@ namespace BrickBreaker
        
         public int score;
         public Scores(string _name, int _score)
+
         {
             name = _name;
             score = _score;

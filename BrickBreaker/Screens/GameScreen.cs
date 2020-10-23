@@ -371,10 +371,12 @@ namespace BrickBreaker
 
                 paddle.width = 80;
 
+
                 if (powerupBall.Count() >= 1)
                 {
                     powerupBall.RemoveAt(0);
                 }
+
                 
                
                 #endregion
@@ -399,6 +401,7 @@ namespace BrickBreaker
 
             #region Check for collision of ball with paddle, (incl. paddle movement)
             ball.PaddleCollision(paddle, leftArrowDown, rightArrowDown);
+
             if (powerupBall.Count() >= 1)
             {
                 powerupBall[0].PaddleCollision(paddle, leftArrowDown, rightArrowDown);

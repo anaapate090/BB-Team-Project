@@ -102,10 +102,11 @@
             this.letter1Output.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.letter1Output.UseVisualStyleBackColor = false;
             this.letter1Output.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.letter1Output_PreviewKeyDown);
+
             // 
             // letter2Output
             // 
-            this.letter2Output.BackColor = System.Drawing.Color.White;
+            this.letter2Output.BackColor = System.Drawing.Color.White;\
             this.letter2Output.Enabled = false;
             this.letter2Output.Font = new System.Drawing.Font("Times New Roman", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.letter2Output.Location = new System.Drawing.Point(490, 260);

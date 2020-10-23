@@ -54,8 +54,8 @@ namespace BrickBreaker
             HighScoreScreen hs = new HighScoreScreen();
             Form form = this.FindForm();
 
-            form.Controls.Add(hs);
             form.Controls.Remove(this);
+            form.Controls.Add(hs);
 
             hs.Location = new Point((form.Width - hs.Width) / 2, (form.Height - hs.Height) / 2);
         }
