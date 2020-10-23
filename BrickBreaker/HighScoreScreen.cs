@@ -32,19 +32,23 @@ namespace BrickBreaker
 
         private void HighScoreScreen_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < GameScreen.scores.Count(); i++)
+            nameOutput.ResetText();
+            scoreOutput.ResetText();
+
+            List<Scores> sortedList = Scores.scores.OrderBy(s => s.score).ToList();
+
+            if (sortedList.Count() > 0)
             {
-                if (GameScreen.scores[GameScreen.scores.Count() - 1] >= GameScreen.scores[GameScreen.scores.Count()])
+                for (int i = 0; i < sortedList.Count(); i++)
                 {
-                    outputLabel.Text += "\n" + i + ": " + GameScreen.scores[i];
-
-                    nameOutput.Text += GameOverScreen.nameKeeper + "\n";
-                    //WinScreen
-                    nameOutput.Text += playAgainButton.nameKeeper1 + "\n";
-
-                    scoreOutput.Text += GameScreen.score;
+                    if (i < 10)
+                    {
+                            nameOutput.Text += sortedList[i].name + "\n";
+                            scoreOutput.Text += sortedList[i].score + "\n";
+                    }
                 }
             }
+
         }
     }
 }

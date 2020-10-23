@@ -62,27 +62,9 @@ namespace BrickBreaker
             string playerName = letter1Output.Text + letter2Output.Text + letter3Output.Text;
             int score = GameScreen.score;
 
-            Scores newScores = new Scores(playerName, score);
+            Scores newScores = new Scores(playerName, score + "");
 
             Scores.scores.Add(newScores);
-
-            XmlWriter writer = XmlWriter.Create("Resources/ScoreXML.xml", null);
-
-            writer.WriteStartElement("HighScores");
-
-            foreach (Scores s in Scores.scores)
-            {
-                writer.WriteStartElement("Player");
-
-                writer.WriteElementString("name", s.name);
-                writer.WriteElementString("score", s.score + "");
-
-                writer.WriteEndElement();
-            }
-
-            writer.WriteEndElement();
-
-            writer.Close();
 
         }
 

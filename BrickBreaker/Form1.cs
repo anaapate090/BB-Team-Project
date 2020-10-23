@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Linq;
 
 // this works
 
@@ -15,13 +16,15 @@ namespace BrickBreaker
 {
     public partial class Form1 : Form
     {
-        
+
         public Form1()
         {
             InitializeComponent();
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            TsunamiReadXML();
+
             // Start the program centred on the Menu Screen
             MenuScreen ms = new MenuScreen();
             this.Controls.Add(ms);
@@ -50,6 +53,29 @@ namespace BrickBreaker
             writer.WriteEndElement();
 
             writer.Close();
+        }
+
+        private void TsunamiReadXML()
+        {
+            //reading xml
+
+            XmlTextReader reader = new XmlTextReader("Resources/ScoreXML.xml");
+
+            while (reader.Read())
+            {
+
+                if (reader.NodeType == XmlNodeType.Text)
+                {
+                    string name = reader.ReadString();
+
+                    reader.ReadToNextSibling("score");
+                    string score = reader.ReadString();
+
+                    Scores newScore = new Scores(name, score);
+                    Scores.scores.Add(newScore);
+                }
+            }
+            reader.Close();
         }
     }
 }
