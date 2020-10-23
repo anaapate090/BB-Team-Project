@@ -39,14 +39,13 @@ namespace BrickBreaker
             List<Scores> sortedList = Scores.scores.OrderBy(s => s.score).ToList();
             if (sortedList.Count() > 0)
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < sortedList.Count(); i++)
                 {
-                    if (sortedList[i].name != null)
-                    {
+                  
                         nameOutput.Text += sortedList[i].name + "\n";
 
-                        scoreOutput.Text += sortedList[i].score;
-                    }
+                        scoreOutput.Text += sortedList[i].score + "\n";
+                  
                 }
             }
         }
